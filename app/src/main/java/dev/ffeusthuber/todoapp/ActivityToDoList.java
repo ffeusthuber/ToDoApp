@@ -21,20 +21,13 @@ public class ActivityToDoList extends AppCompatActivity {
 
     public void onClick(View view){
         int id = view.getId();
-        if (id == R.id.btnEditTask) {
-            openActivityEditTask();
-        } else if (id == R.id.btnNewTask) {
+        if (id == R.id.btnNewTask) {
             openActivityNewTask();
         }
     }
 
     private void openActivityNewTask(){
         Intent intent = new Intent(this, ActivityNewTask.class);
-        startActivity(intent);
-    }
-
-    private void openActivityEditTask(){
-        Intent intent = new Intent(this, ActivityEditTask.class);
         startActivity(intent);
     }
 }
