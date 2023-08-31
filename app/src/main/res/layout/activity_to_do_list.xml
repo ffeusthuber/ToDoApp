@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityToDoList">
+    tools:context=".ActivityToDoList"
+    android:id="@+id/toDoListLayout">
 
     <Button
         android:id="@+id/btnNewTask"
@@ -21,20 +22,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="ToDo-Liste"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnEditTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:onClick="onClick"
-        android:text="Bearbeiten"
-        app:layout_constraintBottom_toBottomOf="@+id/btnNewTask"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnNewTask" />
 </androidx.constraintlayout.widget.ConstraintLayout>
