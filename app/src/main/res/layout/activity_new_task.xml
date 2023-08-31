@@ -4,37 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityToDoList">
+    tools:context=".ActivityNewTask">
 
     <Button
-        android:id="@+id/btnNewTask"
+        android:id="@+id/btnCancel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:onClick="onClick"
+        android:text="Abbrechen"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateTask" />
+
+    <Button
+        android:id="@+id/btnCreateTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:onClick="onClick"
-        android:text="+"
+        android:text="ToDo erstellen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ToDo-Liste"
+        android:text="neues ToDo erstellen!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnEditTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:onClick="onClick"
-        android:text="Bearbeiten"
-        app:layout_constraintBottom_toBottomOf="@+id/btnNewTask"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnNewTask" />
 </androidx.constraintlayout.widget.ConstraintLayout>

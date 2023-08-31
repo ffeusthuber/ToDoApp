@@ -9,22 +9,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class ActivityLogin extends AppCompatActivity {
+    private EditText edtTxtUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        edtTxtUsername = findViewById(R.id.edtTxtUsername);
     }
 
     public void onBtnLoginClick(View view){
-        EditText edtTxtUsername = findViewById(R.id.edtTxtUsername);
-        Toast.makeText(ActivityLogin.this,"Login von "+ edtTxtUsername.getText().toString() + " erfolgreich",Toast.LENGTH_LONG).show();
+        Toast.makeText(ActivityLogin.this,"Login von "+ edtTxtUsername.getText().toString() + " erfolgreich",Toast.LENGTH_SHORT).show();
 
         //To implement: Save Login
-        openToDoListActivity();
+        openActivityToDoList();
     }
 
-    private void openToDoListActivity(){
+    private void openActivityToDoList(){
         Intent intent = new Intent(this, ActivityToDoList.class);
         startActivity(intent);
     }
