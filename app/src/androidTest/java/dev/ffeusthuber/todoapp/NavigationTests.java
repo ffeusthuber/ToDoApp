@@ -26,28 +26,28 @@ public class NavigationTests {
     public void test_nav_ActivityLogin_toActivityToDoList() {
         ActivityScenario.launch(LoginActivity.class);
         onView(withId(R.id.btnLogin)).perform(click());
-        onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.layoutToDoList)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityToDoList_toActivityNewTask() {
         ActivityScenario.launch(ToDoListActivity.class);
         onView(withId(R.id.btnNewTask)).perform(click());
-        onView(withId(R.id.newTaskLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.layoutNewTask)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityNewTask_toActivityToDoList_viaBtnCancel() {
         ActivityScenario.launch(NewTaskActivity.class);
         onView(withId(R.id.btnCancel)).perform(click());
-        onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.layoutToDoList)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityNewTask_toActivityToDoList_viaBtnCreateTask() {
         ActivityScenario.launch(NewTaskActivity.class);
         onView(withId(R.id.btnCreateTask)).perform(click());
-        onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.layoutToDoList)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class NavigationTests {
         ActivityScenario.launch(ToDoListActivity.class);
         onView(withId(R.id.btnNewTask)).perform(click());
         pressBack();
-        onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.layoutToDoList)).check(matches(isDisplayed()));
     }
 
 }

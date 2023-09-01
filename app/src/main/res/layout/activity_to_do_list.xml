@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ToDoListActivity"
-    android:id="@+id/toDoListLayout">
+    android:id="@+id/layoutToDoList">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNewTask"
@@ -33,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recViewToDoList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btnNewTask"
