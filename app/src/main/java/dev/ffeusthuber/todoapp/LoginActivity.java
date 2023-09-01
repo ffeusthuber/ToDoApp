@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActivityLogin extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText edtTxtUsername;
 
     @Override
@@ -20,14 +20,14 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     public void onBtnLoginClick(View view){
-        Toast.makeText(ActivityLogin.this,"Login von "+ edtTxtUsername.getText().toString() + " erfolgreich",Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this,"Login von "+ edtTxtUsername.getText().toString() + " erfolgreich",Toast.LENGTH_SHORT).show();
 
         //To implement: Save Login
         openActivityToDoList();
     }
 
     private void openActivityToDoList(){
-        Intent intent = new Intent(this, ActivityToDoList.class);
+        Intent intent = new Intent(this, ToDoListActivity.class);
         startActivity(intent);
     }
 

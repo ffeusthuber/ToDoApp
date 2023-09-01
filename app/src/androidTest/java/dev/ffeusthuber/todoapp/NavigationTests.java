@@ -24,35 +24,35 @@ public class NavigationTests {
 
     @Test
     public void test_nav_ActivityLogin_toActivityToDoList() {
-        ActivityScenario.launch(ActivityLogin.class);
+        ActivityScenario.launch(LoginActivity.class);
         onView(withId(R.id.btnLogin)).perform(click());
         onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityToDoList_toActivityNewTask() {
-        ActivityScenario.launch(ActivityToDoList.class);
+        ActivityScenario.launch(ToDoListActivity.class);
         onView(withId(R.id.btnNewTask)).perform(click());
         onView(withId(R.id.newTaskLayout)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityNewTask_toActivityToDoList_viaBtnCancel() {
-        ActivityScenario.launch(ActivityNewTask.class);
+        ActivityScenario.launch(NewTaskActivity.class);
         onView(withId(R.id.btnCancel)).perform(click());
         onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_ActivityNewTask_toActivityToDoList_viaBtnCreateTask() {
-        ActivityScenario.launch(ActivityNewTask.class);
+        ActivityScenario.launch(NewTaskActivity.class);
         onView(withId(R.id.btnCreateTask)).perform(click());
         onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));
     }
 
     @Test
     public void test_nav_backpress_toActivityToDoList_fromActivityNewTask_viaBtnNewTask() {
-        ActivityScenario.launch(ActivityToDoList.class);
+        ActivityScenario.launch(ToDoListActivity.class);
         onView(withId(R.id.btnNewTask)).perform(click());
         pressBack();
         onView(withId(R.id.toDoListLayout)).check(matches(isDisplayed()));

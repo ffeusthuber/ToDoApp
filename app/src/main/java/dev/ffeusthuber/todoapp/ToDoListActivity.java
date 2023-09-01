@@ -2,14 +2,11 @@ package dev.ffeusthuber.todoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-public class ActivityToDoList extends AppCompatActivity {
+public class ToDoListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +15,10 @@ public class ActivityToDoList extends AppCompatActivity {
         //load user todolist
     }
 
+    protected void onStart() {
+        super.onStart();
+        //refresh todolist
+    }
 
     public void onClick(View view){
         int id = view.getId();
@@ -27,7 +28,7 @@ public class ActivityToDoList extends AppCompatActivity {
     }
 
     private void openActivityNewTask(){
-        Intent intent = new Intent(this, ActivityNewTask.class);
+        Intent intent = new Intent(this, NewTaskActivity.class);
         startActivity(intent);
     }
 }

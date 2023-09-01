@@ -6,38 +6,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class ActivityNewTask extends AppCompatActivity {
+public class NewTaskActivity extends AppCompatActivity {
 
-    private EditText edtTaskName;
+    private EditText edtTxtTaskName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
-        edtTaskName = findViewById(R.id.edtTxtTaskName);
+        edtTxtTaskName = findViewById(R.id.edtTxtTaskName);
     }
 
-
-    protected void onStart() {
-        super.onStart();
-        //refresh todolist
-    }
 
     public void onClick(View view){
         int id = view.getId();
         if (id == R.id.btnCreateTask) {
-            // save new Task
+            saveNewTask();
             openActivityToDoList();
         } else if (id == R.id.btnCancel) {
             openActivityToDoList();
         }
     }
 
+    private void saveNewTask() {
+        Task task = new Task(edtTxtTaskName.getText().toString());
+    }
+
     private void openActivityToDoList(){
-        Intent intent = new Intent(this, ActivityToDoList.class);
+        Intent intent = new Intent(this, ToDoListActivity.class);
         startActivity(intent);
     }
 }

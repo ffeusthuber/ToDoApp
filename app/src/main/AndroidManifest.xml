@@ -13,13 +13,13 @@
         android:theme="@style/Theme.ToDoApp"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityNewTask"
+            android:name=".NewTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityToDoList"
+            android:name=".ToDoListActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityLogin"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
