@@ -19,13 +19,14 @@ public class ToDoListActivity extends AppCompatActivity {
         toDoListRecView = findViewById(R.id.recViewToDoList);
 
         //load user todolist (temp solution till db)
-        ArrayList<Task> todoList = new ArrayList<>();
-        todoList.add(new Task("Add database"));
-        todoList.add(new Task("Rework UI"));
-        todoList.add(new Task("Implement Login"));
+        ToDoList tdl = new ToDoList(new ArrayList<>());
+        tdl.getTasks().add(new Task("Add database"));
+        tdl.getTasks().add(new Task("Rework UI"));
+        tdl.getTasks().add(new Task("Implement Login"));
+
 
         ToDoListRecViewAdapter adapter = new ToDoListRecViewAdapter();
-        adapter.setToDoList(todoList);
+        adapter.setToDoList(tdl.getTasks());
         toDoListRecView.setAdapter(adapter);
         toDoListRecView.setLayoutManager(new LinearLayoutManager(ToDoListActivity.this));
     }
