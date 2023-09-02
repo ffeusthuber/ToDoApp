@@ -28,6 +28,7 @@ public class ToDoListRecViewAdapter extends RecyclerView.Adapter<ToDoListRecView
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtTaskTitle.setText(toDoList.get(position).getTitle());
         holder.cbTaskFinished.setChecked(toDoList.get(position).isFinished());
+        holder.txtTaskFinishDate.setText(toDoList.get(position).getFinishDate().toString());
     }
 
     @Override
@@ -42,11 +43,13 @@ public class ToDoListRecViewAdapter extends RecyclerView.Adapter<ToDoListRecView
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView txtTaskTitle;
+        private final TextView txtTaskFinishDate;
         private final CheckBox cbTaskFinished;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTaskTitle = itemView.findViewById(R.id.txtTaskTitle);
             cbTaskFinished = itemView.findViewById(R.id.cbTaskFinished);
+            txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
         }
     }
 }
