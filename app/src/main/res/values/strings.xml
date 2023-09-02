@@ -3,7 +3,9 @@
     <string name="todo_list">ToDo List</string>
     <string name="add_task_symbol" translatable="false">+</string>
     <string name="create_new_task">Create a new task!</string>
-    <string name="task">Task</string>
+    <string name="task_title">Title</string>
+    <string name="task_finishdate">Finish Date</string>
+    <string name="task_display_finishdate" translatable="false">%1$d.%2$d.%3$d</string>
     <string name="cancel">Cancel</string>
     <string name="create_task">Create Task</string>
     <string name="login" translatable="false">Login</string>

@@ -3,7 +3,8 @@
     <string name="app_name">ToDoApp</string>
     <string name="todo_list">ToDo Liste</string>
     <string name="create_new_task">Erstellen Sie eine neue Aufgabe!</string>
-    <string name="task">Aufgabe</string>
+    <string name="task_title">Titel</string>
+    <string name="task_finishdate">Abschlussdatum</string>
     <string name="cancel">Abbrechen</string>
     <string name="create_task">Aufgabe Erstellen</string>
     <string name="username">Benutzername</string>
