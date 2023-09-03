@@ -13,6 +13,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import dev.ffeusthuber.todoapp.feature_login.LoginActivity;
+import dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task.NewTaskActivity;
+import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
+
 
 /**
  * Instrumented test, which will execute on an Android device.

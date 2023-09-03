@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp;
+package dev.ffeusthuber.todoapp.feature_todo.presentation.todolist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import dev.ffeusthuber.todoapp.R;
+import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
 
 public class ToDoListRecViewAdapter extends RecyclerView.Adapter<ToDoListRecViewAdapter.ViewHolder>{
     public ToDoListRecViewAdapter() {

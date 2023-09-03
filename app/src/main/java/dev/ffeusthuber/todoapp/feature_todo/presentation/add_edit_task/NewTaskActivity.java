@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp;
+package dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+
+import dev.ffeusthuber.todoapp.R;
+import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
+import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
 
 public class NewTaskActivity extends AppCompatActivity {
 

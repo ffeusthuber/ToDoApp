@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp;
+package dev.ffeusthuber.todoapp.feature_todo.presentation.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+
+import dev.ffeusthuber.todoapp.R;
+import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
+import dev.ffeusthuber.todoapp.feature_todo.domain.model.ToDoList;
+import dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task.NewTaskActivity;
 
 public class ToDoListActivity extends AppCompatActivity {
     private RecyclerView toDoListRecView;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewTaskActivity"
+    tools:context=".feature_todo.presentation.add_edit_task.NewTaskActivity"
     android:id="@+id/layoutNewTask">
 
     <Button

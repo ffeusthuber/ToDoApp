@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp;
+package dev.ffeusthuber.todoapp.feature_login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import dev.ffeusthuber.todoapp.R;
+import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtTxtUsername;
