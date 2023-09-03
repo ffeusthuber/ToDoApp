@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layoutItemTask"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvItemTask"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
@@ -12,43 +13,75 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/txtTaskFinishDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Task Finish Date"
-            app:layout_constraintBottom_toBottomOf="@+id/cbTaskFinished"
-            app:layout_constraintStart_toEndOf="@+id/cbTaskFinished" />
 
-        <CheckBox
-            android:id="@+id/cbTaskFinished"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/collapsedTaskLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/txtTaskTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Task Title"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/cbTaskFinished"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/ibtnTaskDropdown"
-            android:layout_width="0dp"
+
+            <CheckBox
+                android:id="@+id/cbTaskFinished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTaskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task Title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/cbTaskFinished"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/ibtnTaskDropdown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/dropdown_taskdetails"
+                android:src="@drawable/ic_task_dropdown"
+                app:layout_constraintBottom_toBottomOf="@+id/cbTaskFinished"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cbTaskFinished"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_task_dropdown"
-            android:contentDescription="@string/dropdown_taskdetails"
-            app:layout_constraintBottom_toBottomOf="@+id/cbTaskFinished"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cbTaskFinished" />
+            android:id="@+id/expandedTaskLayout"
+            app:layout_constraintTop_toBottomOf="@id/collapsedTaskLayout"
+            app:layout_constraintStart_toStartOf="@id/collapsedTaskLayout"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtTaskFinishDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Task Finish Date"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ibtnTaskDropup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/dropup_taskdetails"
+                android:src="@drawable/ic_task_dropup"
+                app:layout_constraintTop_toBottomOf="@+id/txtTaskFinishDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>

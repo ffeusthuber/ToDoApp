@@ -10,5 +10,6 @@
     <string name="create_task">Create Task</string>
     <string name="login" translatable="false">Login</string>
     <string name="username">Username</string>
-    <string name="dropdown_taskdetails">Dropdown menu for displaying the tasks details.</string>
+    <string name="dropdown_taskdetails">Expand tasks details.</string>
+    <string name="dropup_taskdetails">Collapse tasks details.</string>
 </resources>

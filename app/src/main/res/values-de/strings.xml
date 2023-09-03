@@ -8,5 +8,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="create_task">Aufgabe Erstellen</string>
     <string name="username">Benutzername</string>
-    <string name="dropdown_taskdetails">Dropdown-Menü zur Anzeige der Aufgabendetails.</string>
+    <string name="dropdown_taskdetails">Aufgabendetails ausklappen.</string>
+    <string name="dropup_taskdetails">Aufgabendetails einklappen.</string>
 </resources>

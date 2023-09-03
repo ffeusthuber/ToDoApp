@@ -1,16 +1,17 @@
 package dev.ffeusthuber.todoapp.feature_todo.domain.model;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Task {
     private String title;
     private boolean finished;
+    private boolean isCardviewExpanded;
     private LocalDate finishDate;
+
     public Task(String title) {
         this.title = title;
         this.finished = false;
+        this.isCardviewExpanded=false;
         this.finishDate = LocalDate.now();
     }
 
@@ -36,6 +37,14 @@ public class Task {
 
     public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public boolean isCardviewExpanded() {
+        return isCardviewExpanded;
+    }
+
+    public void setCardviewExpanded(boolean cardviewExpanded) {
+        isCardviewExpanded = cardviewExpanded;
     }
 }
 
