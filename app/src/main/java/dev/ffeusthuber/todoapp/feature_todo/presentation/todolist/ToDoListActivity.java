@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.ArrayList;
-
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
-import dev.ffeusthuber.todoapp.feature_todo.domain.model.ToDoList;
+import dev.ffeusthuber.todoapp.feature_todo.domain.model.User;
 import dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task.NewTaskActivity;
 
 public class ToDoListActivity extends AppCompatActivity {
@@ -23,15 +21,16 @@ public class ToDoListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_to_do_list);
         toDoListRecView = findViewById(R.id.recViewToDoList);
 
-        //load user todolist (temp solution till db)
-        ToDoList tdl = new ToDoList(new ArrayList<>());
-        tdl.getTasks().add(new Task("Add database"));
-        tdl.getTasks().add(new Task("Rework UI"));
-        tdl.getTasks().add(new Task("Implement Login"));
+
+        User currentUser = new User();
+        //TODO: Load users Todolist
+        currentUser.addTask(new Task("Add database"));
+        currentUser.addTask(new Task("Rework UI"));
+        currentUser.addTask(new Task("Implement Login"));
 
 
         ToDoListRecViewAdapter adapter = new ToDoListRecViewAdapter();
-        adapter.setToDoList(tdl.getTasks());
+        adapter.setToDoList(currentUser.getTasks());
         toDoListRecView.setAdapter(adapter);
         toDoListRecView.setLayoutManager(new LinearLayoutManager(ToDoListActivity.this));
     }

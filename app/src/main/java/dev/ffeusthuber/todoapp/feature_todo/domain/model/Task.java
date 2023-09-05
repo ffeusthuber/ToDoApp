@@ -8,6 +8,9 @@ public class Task {
     private boolean isCardviewExpanded;
     private LocalDate finishDate;
 
+    public Task(){
+        //needed for firestore
+    }
     public Task(String title) {
         this.title = title;
         this.finished = false;
