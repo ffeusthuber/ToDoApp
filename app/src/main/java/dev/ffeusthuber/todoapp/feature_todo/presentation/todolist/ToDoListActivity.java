@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.User;
@@ -21,15 +25,16 @@ public class ToDoListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_to_do_list);
         toDoListRecView = findViewById(R.id.recViewToDoList);
 
-
         User currentUser = new User();
+
         //TODO: Load users Todolist
-        currentUser.addTask(new Task("Add database"));
-        currentUser.addTask(new Task("Rework UI"));
-        currentUser.addTask(new Task("Implement Login"));
+        //currentUser.addTask(new Task("Add database"));
+        //currentUser.addTask(new Task("Rework UI"));
+        //currentUser.addTask(new Task("Implement Login"));
 
-
-        ToDoListRecViewAdapter adapter = new ToDoListRecViewAdapter();
+        Query query = FirebaseFirestore.getInstance().collection("Tasks");
+        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>().setQuery(query, Task.class).build();
+        ToDoListRecViewAdapter adapter = new ToDoListRecViewAdapter(options);
         adapter.setToDoList(currentUser.getTasks());
         toDoListRecView.setAdapter(adapter);
         toDoListRecView.setLayoutManager(new LinearLayoutManager(ToDoListActivity.this));

@@ -3,13 +3,14 @@ package dev.ffeusthuber.todoapp.feature_todo.domain.model;
 import java.util.ArrayList;
 
 public class User {
+
     private String username;
     private ArrayList<Task> tasks;
 
     public User() {
         //get existing Data
        tasks = new ArrayList<>();
-       username = "Testuser";
+       username = "TESTUSER1";
     }
 
     public void addTask(Task task){
@@ -23,9 +24,10 @@ public class User {
         return tasks;
     }
 
-    public String toString() {
+    public String getUsername() {
         return username;
     }
+
 }
 
 

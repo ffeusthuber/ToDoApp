@@ -1,21 +1,26 @@
 package dev.ffeusthuber.todoapp.feature_todo.domain.model;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.Exclude;
+
 import java.time.LocalDate;
 
 public class Task {
     private String title;
-    private boolean finished;
+    private boolean isCompleted;
+    private Timestamp dateCreated;
     private boolean isCardviewExpanded;
-    private LocalDate finishDate;
+
 
     public Task(){
         //needed for firestore
     }
-    public Task(String title) {
+
+    public Task(String title, boolean isCompleted, Timestamp dateCreated, boolean isCardviewExpanded) {
         this.title = title;
-        this.finished = false;
-        this.isCardviewExpanded=false;
-        this.finishDate = LocalDate.now();
+        this.isCompleted = isCompleted;
+        this.dateCreated = dateCreated;
+        this.isCardviewExpanded = isCardviewExpanded;
     }
 
     public String getTitle() {
@@ -26,28 +31,40 @@ public class Task {
         this.title = title;
     }
 
-    public boolean isFinished() {
-        return finished;
+    public boolean getIsfinished() {
+        return isCompleted;
     }
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
+    public void setIsfinished(boolean isfinished) {
+        this.isCompleted = isfinished;
     }
 
-    public LocalDate getFinishDate() {
-        return finishDate;
+
+    public Timestamp getDateCreated() {
+        return dateCreated;
     }
 
-    public void setFinishDate(LocalDate finishDate) {
-        this.finishDate = finishDate;
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
+    @Exclude
     public boolean isCardviewExpanded() {
         return isCardviewExpanded;
     }
-
+    @Exclude
     public void setCardviewExpanded(boolean cardviewExpanded) {
         isCardviewExpanded = cardviewExpanded;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                ", isCompleted=" + isCompleted +
+                ", dateCreated=" + dateCreated +
+                ", isCardviewExpanded=" + isCardviewExpanded +
+                '}';
     }
 }
 

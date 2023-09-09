@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.google.firebase.Timestamp;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.feature_todo.data.DBConnection;
+import dev.ffeusthuber.todoapp.feature_todo.data.DBConnectionImpl_Firestore;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
 import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
 
@@ -56,9 +58,9 @@ public class NewTaskActivity extends AppCompatActivity {
     }
 
     private void addTaskToToDoList() {
-        Task task = new Task(edtTxtTaskTitle.getText().toString());
-        DBConnection con = new DBConnection();
-        con.SaveUser();
+        Task task = new Task(edtTxtTaskTitle.getText().toString(),false,new Timestamp(new Date()),false);
+        DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
+        con.saveTask(task, "TESTUSER1");
     }
 
     private void openActivityToDoList(){

@@ -1,5 +1,8 @@
 package dev.ffeusthuber.todoapp.feature_todo.presentation.todolist;
 
+import static java.text.DateFormat.*;
+
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,32 +16,40 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
 import java.util.ArrayList;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
 
-public class ToDoListRecViewAdapter extends RecyclerView.Adapter<ToDoListRecViewAdapter.ViewHolder>{
+public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecViewAdapter.TaskViewHolder>{
 
     private ArrayList<Task> toDoList = new ArrayList<>();
 
+    public ToDoListRecViewAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
+        super(options);
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_task,parent,false);
-        return new ViewHolder(view);
+        return new TaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtTaskTitle.setText(toDoList.get(position).getTitle());
-        holder.cbTaskFinished.setChecked(toDoList.get(position).isFinished());
-        holder.txtTaskFinishDate.setText(toDoList.get(position).getFinishDate().toString());
+    protected void onBindViewHolder(@NonNull TaskViewHolder holder, int position, @NonNull Task task) {
+        holder.txtTaskTitle.setText(task.getTitle());
+        holder.cbTaskFinished.setChecked(task.getIsfinished());
+        CharSequence dateCharSeq = DateFormat.format("EEE, MMM, d, yyy",task.getDateCreated().toDate());
+        //holder.txtTaskFinishDate.setText(toDoList.get(position).getFinishDate().toString());
 
         handleExpandedLayoutVisibility(holder, position);
     }
 
-    private void handleExpandedLayoutVisibility(ViewHolder holder, int position){
+    private void handleExpandedLayoutVisibility(TaskViewHolder holder, int position){
         if(toDoList.get(position).isCardviewExpanded()){
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.VISIBLE);
@@ -60,14 +71,14 @@ public class ToDoListRecViewAdapter extends RecyclerView.Adapter<ToDoListRecView
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class TaskViewHolder extends RecyclerView.ViewHolder{
         private final CardView cvItemTask;
         private final TextView txtTaskTitle;
         private final CheckBox cbTaskFinished;
         private final ImageButton ibtnTaskDropdown, ibtnTaskDropup;
         private final ConstraintLayout expandedTaskLayout;
         private final TextView txtTaskFinishDate;
-        public ViewHolder(@NonNull View itemView) {
+        public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             cvItemTask = itemView.findViewById(R.id.cvItemTask);
             txtTaskTitle = itemView.findViewById(R.id.txtTaskTitle);
