@@ -90,21 +90,21 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
             ibtnTaskDropdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   switchExpandView(toDoList.get(getAdapterPosition()));
+                   switchExpandView(toDoList.get(getBindingAdapterPosition()));
                 }
             });
 
             ibtnTaskDropup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switchExpandView(toDoList.get(getAdapterPosition()));
+                    switchExpandView(toDoList.get(getBindingAdapterPosition()));
                 }
             });
         }
 
         private void switchExpandView(Task task){
             task.setCardviewExpanded(!task.isCardviewExpanded());
-            notifyItemChanged(getAdapterPosition());
+            notifyItemChanged(getBindingAdapterPosition());
         }
     }
 }
