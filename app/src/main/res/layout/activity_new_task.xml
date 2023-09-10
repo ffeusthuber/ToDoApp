@@ -7,6 +7,25 @@
     tools:context=".presentation.add_edit_task.NewTaskActivity"
     android:id="@+id/layoutNewTask">
 
+    <EditText
+        android:id="@+id/edtTxtDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="@string/task_description"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="10"
+        android:minHeight="48dp"
+        android:minLines="6"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/txtNewTaskMessage"
+        app:layout_constraintStart_toStartOf="@+id/txtNewTaskMessage"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtTaskFinishDate" />
+
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"

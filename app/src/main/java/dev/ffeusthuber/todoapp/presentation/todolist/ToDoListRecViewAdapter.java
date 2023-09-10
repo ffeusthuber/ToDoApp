@@ -40,8 +40,8 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
     @Override
     protected void onBindViewHolder(@NonNull TaskViewHolder holder, int position, @NonNull Task task) {
         holder.txtTaskTitle.setText(task.getTitle());
-        holder.cbTaskFinished.setChecked(task.getIsfinished());
-        CharSequence dateCharSeq = DateFormat.format("EEE, MMM, d, yyy",task.getDateCreated().toDate());
+        holder.cbTaskFinished.setChecked(task.getIsCompleted());
+        CharSequence dateCharSeq = DateFormat.format("EEE, MMM, d, yyy", task.getDateCreated());
         //holder.txtTaskFinishDate.setText(toDoList.get(position).getFinishDate().toString());
 
         handleExpandedLayoutVisibility(holder, position);
@@ -73,9 +73,9 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
         private final CardView cvItemTask;
         private final TextView txtTaskTitle;
         private final CheckBox cbTaskFinished;
-        private final ImageButton ibtnTaskDropdown, ibtnTaskDropup;
+        private final ImageButton ibtnTaskDropdown;
         private final ConstraintLayout expandedTaskLayout;
-        private final TextView txtTaskFinishDate;
+
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             cvItemTask = itemView.findViewById(R.id.cvItemTask);
@@ -84,13 +84,13 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
             ibtnTaskDropdown = itemView.findViewById(R.id.ibtnTaskDropdown);
 
             expandedTaskLayout = itemView.findViewById(R.id.expandedTaskLayout);
-            ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
-            txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
+            ImageButton ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
+            TextView txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
 
             ibtnTaskDropdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   switchExpandView(toDoList.get(getBindingAdapterPosition()));
+                    switchExpandView(toDoList.get(getBindingAdapterPosition()));
                 }
             });
 

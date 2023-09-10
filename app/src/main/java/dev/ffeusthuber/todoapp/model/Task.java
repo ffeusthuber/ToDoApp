@@ -1,23 +1,30 @@
 package dev.ffeusthuber.todoapp.model;
 
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
+
+import java.util.Date;
 
 public class Task {
     private String title;
+    private String description;
     private boolean isCompleted;
-    private Timestamp dateCreated;
+    private Date dateCreated;
+
+
+    private Date dateCompletion;
     private boolean isCardviewExpanded;
 
 
-    public Task(){
+    public Task() {
         //needed for firestore
     }
 
-    public Task(String title, boolean isCompleted, Timestamp dateCreated, boolean isCardviewExpanded) {
+    public Task(String title, String description, boolean isCompleted, Date dateCreated, Date dateCompletion, boolean isCardviewExpanded) {
         this.title = title;
+        this.description = description;
         this.isCompleted = isCompleted;
         this.dateCreated = dateCreated;
+        this.dateCompletion = dateCompletion;
         this.isCardviewExpanded = isCardviewExpanded;
     }
 
@@ -29,20 +36,35 @@ public class Task {
         this.title = title;
     }
 
-    public boolean getIsfinished() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean getIsCompleted() {
         return isCompleted;
     }
 
-    public void setIsfinished(boolean isfinished) {
-        this.isCompleted = isfinished;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
+    public Date getDateCompletion() {
+        return dateCompletion;
+    }
 
-    public Timestamp getDateCreated() {
+    public void setDateCompletion(Date dateCompletion) {
+        this.dateCompletion = dateCompletion;
+    }
+
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Timestamp dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
@@ -59,8 +81,10 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "title='" + title + '\'' +
+                ", description='" + description + '\'' +
                 ", isCompleted=" + isCompleted +
                 ", dateCreated=" + dateCreated +
+                ", dateCompletion=" + dateCompletion +
                 ", isCardviewExpanded=" + isCardviewExpanded +
                 '}';
     }

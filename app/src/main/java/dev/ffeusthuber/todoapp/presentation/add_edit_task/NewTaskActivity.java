@@ -1,7 +1,5 @@
 package dev.ffeusthuber.todoapp.presentation.add_edit_task;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +7,11 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.google.firebase.Timestamp;
+import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,7 +23,9 @@ import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
 public class NewTaskActivity extends AppCompatActivity {
 
     private EditText edtTxtTaskTitle;
-    private EditText edtTxtTaskFinishDate;
+    private final DateFormat format = SimpleDateFormat.getDateInstance();
+    private EditText edtTxtTaskDescription;
+    private EditText edtTxtTaskCompletionDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,8 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         edtTxtTaskTitle = findViewById(R.id.edtTxtTaskTitle);
-        edtTxtTaskFinishDate = findViewById(R.id.edtTxtTaskFinishDate);
+        edtTxtTaskDescription = findViewById(R.id.edtTxtDescription);
+        edtTxtTaskCompletionDate = findViewById(R.id.edtTxtTaskFinishDate);
     }
 
 
@@ -49,7 +53,7 @@ public class NewTaskActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(NewTaskActivity.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    edtTxtTaskFinishDate.setText(getString(R.string.task_display_finishdate,day,month,year));
+                    edtTxtTaskCompletionDate.setText(getString(R.string.task_display_finishdate, day, month, year));
                 }
             }, finishDateYear, finishDateMonth, finishDateDay);
             datePickerDialog.show();
@@ -57,12 +61,34 @@ public class NewTaskActivity extends AppCompatActivity {
     }
 
     private void addTaskToToDoList() {
-        Task task = new Task(edtTxtTaskTitle.getText().toString(),false,new Timestamp(new Date()),false);
+        Task task = new Task(edtTxtTaskTitle.getText().toString(), edtTxtTaskDescription.getText().toString(), false, new Date(), parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()), false);
         DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
         con.saveTask(task, "TESTUSER1");
     }
 
-    private void openActivityToDoList(){
+    private void buildTaskObject() {
+        Task task = new Task(
+                edtTxtTaskTitle.getText().toString(),
+                edtTxtTaskDescription.getText().toString(),
+                false,
+                new Date(),
+                parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
+                false);
+    }
+
+    private Date parseStringtoDate(String dateString) {
+        Date date;
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
+
+    //TODO: seperate Logic from view
+
+    private void openActivityToDoList() {
         Intent intent = new Intent(this, ToDoListActivity.class);
         startActivity(intent);
     }

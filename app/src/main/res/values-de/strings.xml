@@ -12,5 +12,6 @@
     <string name="dropup_taskdetails">Aufgabendetails einklappen.</string>
     <string name="logout">Abmelden</string>
     <string name="content_description_logout">Melden Sie sich als Benutzer ab</string>
+    <string name="task_description">Beschreibung</string>
     <string name="calendar">Kalender</string>
 </resources>
