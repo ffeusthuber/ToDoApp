@@ -12,4 +12,6 @@
     <string name="username">Username</string>
     <string name="dropdown_taskdetails">Expand tasks details.</string>
     <string name="dropup_taskdetails">Collapse tasks details.</string>
+    <string name="logout">Log out</string>
+    <string name="content_description_logout">Log out as current user</string>
 </resources>

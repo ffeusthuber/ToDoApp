@@ -17,14 +17,15 @@
             android:exported="false" />
         <activity
             android:name=".feature_todo.presentation.todolist.ToDoListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".feature_login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".feature_login.LoginActivity"
+            android:exported="false">
         </activity>
     </application>
 

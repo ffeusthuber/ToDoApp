@@ -17,13 +17,12 @@ import java.util.List;
 import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
-    private static final String TAG ="DBConnection";
-    private FirebaseFirestore db;
-    private CollectionReference userCollRef;
-    ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final String TAG = "DBConnectionImpl_Firestore";
+    private final CollectionReference userCollRef;
+    ArrayList<Task> tasks = new ArrayList<>();
 
     public DBConnectionImpl_Firestore(){
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         userCollRef = db.collection("Users");
     }
 
@@ -63,7 +62,6 @@ public class DBConnectionImpl_Firestore implements DBConnection{
                         for(DocumentSnapshot ds:snapshotList){
                             Task task = ds.toObject(Task.class);
                             tasks.add(task);
-                            System.out.println(task.getTitle());
                         }
                         System.out.println("................................");
                         Log.d(TAG, "Retrieved all tasks!");
