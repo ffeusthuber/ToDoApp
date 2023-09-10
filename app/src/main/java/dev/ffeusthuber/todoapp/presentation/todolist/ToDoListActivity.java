@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.feature_todo.presentation.todolist;
+package dev.ffeusthuber.todoapp.presentation.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,10 +19,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.feature_login.LoginActivity;
-import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
-import dev.ffeusthuber.todoapp.feature_todo.domain.model.User;
-import dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task.NewTaskActivity;
+import dev.ffeusthuber.todoapp.presentation.login.LoginActivity;
+import dev.ffeusthuber.todoapp.model.Task;
+import dev.ffeusthuber.todoapp.model.User;
+import dev.ffeusthuber.todoapp.presentation.add_edit_task.NewTaskActivity;
 
 public class ToDoListActivity extends AppCompatActivity {
     private static final String TAG = "ToDoListActivity";

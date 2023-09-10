@@ -13,10 +13,10 @@
         android:theme="@style/Theme.ToDoApp"
         tools:targetApi="31">
         <activity
-            android:name=".feature_todo.presentation.add_edit_task.NewTaskActivity"
+            android:name=".presentation.add_edit_task.NewTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".feature_todo.presentation.todolist.ToDoListActivity"
+            android:name=".presentation.todolist.ToDoListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feature_login.LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:exported="false">
         </activity>
     </application>

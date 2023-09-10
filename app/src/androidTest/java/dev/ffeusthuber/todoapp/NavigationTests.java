@@ -13,9 +13,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import dev.ffeusthuber.todoapp.feature_login.LoginActivity;
-import dev.ffeusthuber.todoapp.feature_todo.presentation.add_edit_task.NewTaskActivity;
-import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.login.LoginActivity;
+import dev.ffeusthuber.todoapp.presentation.add_edit_task.NewTaskActivity;
+import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
 
 
 /**

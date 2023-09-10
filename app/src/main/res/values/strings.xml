@@ -14,4 +14,5 @@
     <string name="dropup_taskdetails">Collapse tasks details.</string>
     <string name="logout">Log out</string>
     <string name="content_description_logout">Log out as current user</string>
+    <string name="calendar">Calendar</string>
 </resources>

@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.feature_todo.data;
+package dev.ffeusthuber.todoapp.data;
 
 import android.util.Log;
 
@@ -14,7 +14,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
+import dev.ffeusthuber.todoapp.model.Task;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";

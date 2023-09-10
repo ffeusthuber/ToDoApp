@@ -1,6 +1,4 @@
-package dev.ffeusthuber.todoapp.feature_todo.presentation.todolist;
-
-import static java.text.DateFormat.*;
+package dev.ffeusthuber.todoapp.presentation.todolist;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -22,7 +20,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import java.util.ArrayList;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.feature_todo.domain.model.Task;
+import dev.ffeusthuber.todoapp.model.Task;
 
 public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecViewAdapter.TaskViewHolder>{
 

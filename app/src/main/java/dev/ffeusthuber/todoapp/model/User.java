@@ -1,11 +1,11 @@
-package dev.ffeusthuber.todoapp.feature_todo.domain.model;
+package dev.ffeusthuber.todoapp.model;
 
 import java.util.ArrayList;
 
 public class User {
 
-    private String username;
-    private ArrayList<Task> tasks;
+    private final String username;
+    private final ArrayList<Task> tasks;
 
     public User() {
         //get existing Data

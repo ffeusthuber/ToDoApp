@@ -1,9 +1,7 @@
-package dev.ffeusthuber.todoapp.feature_todo.domain.model;
+package dev.ffeusthuber.todoapp.model;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
-
-import java.time.LocalDate;
 
 public class Task {
     private String title;

@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.feature_login;
+package dev.ffeusthuber.todoapp.presentation.login;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.feature_todo.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
