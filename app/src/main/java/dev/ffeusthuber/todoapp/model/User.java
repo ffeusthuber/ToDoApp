@@ -3,7 +3,6 @@ package dev.ffeusthuber.todoapp.model;
 import java.util.ArrayList;
 
 public class User {
-
     private final String username;
     private final ArrayList<Task> tasks;
 

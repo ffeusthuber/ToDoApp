@@ -24,6 +24,7 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText edtTxtTaskDescription;
     private EditText edtTxtTaskCompletionDate;
     private final DateParser dateParser = new DateParser();
+    private final DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     private void addTaskToToDoList() {
         Task task = buildTaskObject();
-        DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
-        con.saveTask(task, "TESTUSER1");
+        con.saveTask(task);
     }
 
     private Task buildTaskObject() {

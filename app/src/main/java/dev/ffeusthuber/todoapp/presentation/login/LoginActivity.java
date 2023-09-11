@@ -63,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void createSignInIntent(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build()
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build()
         );
 
         Intent signInIntent = AuthUI.getInstance()

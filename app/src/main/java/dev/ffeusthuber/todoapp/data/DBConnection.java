@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import dev.ffeusthuber.todoapp.model.Task;
 
 public interface DBConnection {
-    void saveTask(Task task, String username);
-    //TODO: Implement Firebase Authentification and remove username from getTasks method
-    ArrayList<Task> getTasks(String username);
+    void saveTask(Task task);
+    Task getTask(String documentId);
+
+    ArrayList<Task> getTasks(String userId);
+
+    String getUserId(String username);
 
 }

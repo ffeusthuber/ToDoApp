@@ -18,21 +18,23 @@ import dev.ffeusthuber.todoapp.model.Task;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
-    private final CollectionReference userCollRef;
+    private final CollectionReference tasksCollRef;
+    private final CollectionReference usersCollRef;
     ArrayList<Task> tasks = new ArrayList<>();
 
     public DBConnectionImpl_Firestore(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        userCollRef = db.collection("Users");
+        tasksCollRef = db.collection("tasks");
+        usersCollRef = db.collection("users");
     }
 
-    public void saveTask(Task task, String username){
-        userCollRef.document(username).collection("Tasks").document()
+    public void saveTask(Task task){
+        tasksCollRef.document()
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d(TAG, "Task saved!");
+                        Log.d(TAG, "Task saved successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -41,7 +43,26 @@ public class DBConnectionImpl_Firestore implements DBConnection{
                         Log.e(TAG, e.toString());
                     }
                 });
-        getTasks("TESTUSER1");
+    }
+
+    @Override
+    public Task getTask(String documentId) {
+        usersCollRef
+                .document(documentId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        //task = documentSnapshot.toObject(Task.class);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+                    }
+                });
+        return null;
     }
 
     public ArrayList<Task> getTasks(String username) {
@@ -49,8 +70,14 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         return  tasks;
     }
 
+    @Override
+    public String getUserId(String username) {
+        //implement query for UID
+        return null;
+    }
+
     private void updateTaskList(String username){
-        userCollRef.document(username)
+        tasksCollRef.document(username)
                 .collection("Tasks")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
