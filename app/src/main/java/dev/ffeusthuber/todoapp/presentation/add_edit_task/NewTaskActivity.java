@@ -9,24 +9,21 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
+import dev.ffeusthuber.todoapp.model.DateParser;
 import dev.ffeusthuber.todoapp.model.Task;
 import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
 
 public class NewTaskActivity extends AppCompatActivity {
 
     private EditText edtTxtTaskTitle;
-    private final DateFormat format = SimpleDateFormat.getDateInstance();
     private EditText edtTxtTaskDescription;
     private EditText edtTxtTaskCompletionDate;
-
+    private final DateParser dateParser = new DateParser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,29 +58,19 @@ public class NewTaskActivity extends AppCompatActivity {
     }
 
     private void addTaskToToDoList() {
-        Task task = new Task(edtTxtTaskTitle.getText().toString(), edtTxtTaskDescription.getText().toString(), false, new Date(), parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()), false);
+        Task task = buildTaskObject();
         DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
         con.saveTask(task, "TESTUSER1");
     }
 
-    private void buildTaskObject() {
-        Task task = new Task(
+    private Task buildTaskObject() {
+        return new Task(
                 edtTxtTaskTitle.getText().toString(),
                 edtTxtTaskDescription.getText().toString(),
                 false,
                 new Date(),
-                parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
+                dateParser.parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
                 false);
-    }
-
-    private Date parseStringtoDate(String dateString) {
-        Date date;
-        try {
-            date = format.parse(dateString);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return date;
     }
 
     //TODO: seperate Logic from view
