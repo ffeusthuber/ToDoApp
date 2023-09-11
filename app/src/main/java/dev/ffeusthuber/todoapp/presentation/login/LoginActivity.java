@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,11 +52,14 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "onSignInResult: Sign in Success");
             openActivityToDoList();
         } else{
-            Log.d(TAG, "onSignInResult: Sign in Failed");
+            IdpResponse response = result.getIdpResponse();
+            if(response == null){
+                Log.d(TAG, "onSignInResult: User canceled sign in request");
+            } else {
+                Log.e(TAG, "onSignInResult: ", response.getError());
+            }
         }
     }
-
-
 
     public void createSignInIntent(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -69,13 +73,11 @@ public class LoginActivity extends AppCompatActivity {
         signInLauncher.launch(signInIntent);
     }
 
-
-
     private void openActivityToDoList(){
         Log.d(TAG, "openActivityToDoList: starting ActivityToDoList");
         Intent intent = new Intent(this, ToDoListActivity.class);
         startActivity(intent);
-        finish();
+        this.finish();
     }
 
 

@@ -1,5 +1,6 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,17 +26,10 @@ import dev.ffeusthuber.todoapp.model.Task;
 import dev.ffeusthuber.todoapp.model.User;
 import dev.ffeusthuber.todoapp.presentation.add_edit_task.NewTaskActivity;
 
-public class ToDoListActivity extends AppCompatActivity {
+public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
     private static final String TAG = "ToDoListActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
-            Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
-            Intent intent =new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
 
@@ -68,6 +63,18 @@ public class ToDoListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().removeAuthStateListener(this);
+    }
+
     public void onClick(View view){
         int id = view.getId();
         if (id == R.id.btnNewTask) {
@@ -75,6 +82,11 @@ public class ToDoListActivity extends AppCompatActivity {
         }
     }
 
+    private void logOutUser(){
+        Log.d(TAG, "logOutUser: Logging out");
+        AuthUI.getInstance().signOut(this);
+        Toast.makeText(ToDoListActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+    }
 
     private void openActivityNewTask(){
         Intent intent = new Intent(this, NewTaskActivity.class);
@@ -85,11 +97,13 @@ public class ToDoListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-
-    private void logOutUser(){
-        Log.d(TAG, "logOutUser: Logging out");
-        FirebaseAuth.getInstance().signOut();
-        openActivityLogin();
-        Toast.makeText(ToDoListActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        if(firebaseAuth.getCurrentUser() == null){
+            Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
+            openActivityLogin();
+        }
     }
+
+
 }
