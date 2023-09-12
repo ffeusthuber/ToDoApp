@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dev.ffeusthuber.todoapp.util.DateParser;
+
 public class DateParserTest extends TestCase {
     public void testParseStringtoDate() {
 

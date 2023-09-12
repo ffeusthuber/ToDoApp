@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.model;
+package dev.ffeusthuber.todoapp.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

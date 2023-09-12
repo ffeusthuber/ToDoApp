@@ -7,10 +7,9 @@ import java.util.Date;
 public class Task {
     private String title;
     private String description;
+    private String userId;
     private boolean isCompleted;
     private Date dateCreated;
-
-
     private Date dateCompletion;
     private boolean isCardviewExpanded;
 
@@ -19,9 +18,10 @@ public class Task {
         //needed for firestore
     }
 
-    public Task(String title, String description, boolean isCompleted, Date dateCreated, Date dateCompletion, boolean isCardviewExpanded) {
+    public Task(String title, String description, String userId, boolean isCompleted, Date dateCreated, Date dateCompletion, boolean isCardviewExpanded) {
         this.title = title;
         this.description = description;
+        this.userId = userId;
         this.isCompleted = isCompleted;
         this.dateCreated = dateCreated;
         this.dateCompletion = dateCompletion;
@@ -42,6 +42,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean getIsCompleted() {
@@ -69,9 +77,10 @@ public class Task {
     }
 
     @Exclude
-    public boolean isCardviewExpanded() {
+    public boolean getIsCardviewExpanded() {
         return isCardviewExpanded;
     }
+
     @Exclude
     public void setCardviewExpanded(boolean cardviewExpanded) {
         isCardviewExpanded = cardviewExpanded;
@@ -82,6 +91,7 @@ public class Task {
         return "Task{" +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", uid='" + userId + '\'' +
                 ", isCompleted=" + isCompleted +
                 ", dateCreated=" + dateCreated +
                 ", dateCompletion=" + dateCompletion +

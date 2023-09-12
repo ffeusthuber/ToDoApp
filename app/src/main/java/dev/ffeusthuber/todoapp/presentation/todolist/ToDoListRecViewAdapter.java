@@ -48,11 +48,11 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
     }
 
     private void handleExpandedLayoutVisibility(TaskViewHolder holder, int position){
-        if(toDoList.get(position).isCardviewExpanded()){
+        if (toDoList.get(position).getIsCardviewExpanded()) {
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.VISIBLE);
             holder.ibtnTaskDropdown.setVisibility(View.GONE);
-        } else{
+        } else {
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.GONE);
             holder.ibtnTaskDropdown.setVisibility(View.VISIBLE);
@@ -103,7 +103,7 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
         }
 
         private void switchExpandView(Task task){
-            task.setCardviewExpanded(!task.isCardviewExpanded());
+            task.setCardviewExpanded(!task.getIsCardviewExpanded());
             notifyItemChanged(getBindingAdapterPosition());
         }
     }
