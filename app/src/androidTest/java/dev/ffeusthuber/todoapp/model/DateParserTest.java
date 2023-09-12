@@ -11,18 +11,17 @@ import java.util.Date;
 
 public class DateParserTest extends TestCase {
     public void testParseStringtoDate() {
-        DateParser dateParser = new DateParser();
 
         // Test 1: parsing a valid date-string
         String validDateString = "11.09.2023";
         Date expectedDate = createDate(2023, 9, 11); // Erwartetes Datum erstellen
-        Date parsedDate = dateParser.parseStringtoDate(validDateString);
+        Date parsedDate = DateParser.parseStringtoDate(validDateString);
         assertEquals(expectedDate, parsedDate);
 
         // Test 2: parsing an invalid date-string
         String invalidDateString = "Invalid Date";
         assertThrows(RuntimeException.class, () -> {
-            dateParser.parseStringtoDate(invalidDateString);
+            DateParser.parseStringtoDate(invalidDateString);
         });
     }
 

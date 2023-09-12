@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateParser {
-    private final DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMAN);
+    private static final DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMAN);
 
-    public Date parseStringtoDate(String dateString) {
+    public static Date parseStringtoDate(String dateString) {
         Date date;
         try {
             date = format.parse(dateString);

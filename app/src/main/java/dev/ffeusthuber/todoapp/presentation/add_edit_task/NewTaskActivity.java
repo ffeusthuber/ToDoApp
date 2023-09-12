@@ -22,7 +22,6 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText edtTxtTaskTitle;
     private EditText edtTxtTaskDescription;
     private EditText edtTxtTaskCompletionDate;
-    private final DateParser dateParser = new DateParser();
     private final DBConnectionImpl_Firestore con = new DBConnectionImpl_Firestore();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 edtTxtTaskDescription.getText().toString(),
                 false,
                 new Date(),
-                dateParser.parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
+                DateParser.parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
                 false);
     }
 }
