@@ -1,7 +1,6 @@
 package dev.ffeusthuber.todoapp.presentation.add_edit_task;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -16,7 +15,7 @@ import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
 import dev.ffeusthuber.todoapp.model.DateParser;
 import dev.ffeusthuber.todoapp.model.Task;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 
 public class NewTaskActivity extends AppCompatActivity {
 
@@ -40,9 +39,9 @@ public class NewTaskActivity extends AppCompatActivity {
         int id = view.getId();
         if (id == R.id.btnCreateTask) {
             addTaskToToDoList();
-            openActivityToDoList();
+            ActivityStarter.openActivityToDoList(NewTaskActivity.this);
         } else if (id == R.id.btnCancel) {
-            openActivityToDoList();
+            ActivityStarter.openActivityToDoList(NewTaskActivity.this);
         } else if (id == R.id.edtTxtTaskFinishDate || id == R.id.ibtnCalendar) {
             final Calendar calendar =Calendar.getInstance();
             int finishDateDay = calendar.get(Calendar.DATE);
@@ -71,12 +70,5 @@ public class NewTaskActivity extends AppCompatActivity {
                 new Date(),
                 dateParser.parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
                 false);
-    }
-
-    //TODO: seperate Logic from view
-
-    private void openActivityToDoList() {
-        Intent intent = new Intent(this, ToDoListActivity.class);
-        startActivity(intent);
     }
 }

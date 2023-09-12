@@ -1,17 +1,16 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -21,13 +20,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.presentation.login.LoginActivity;
 import dev.ffeusthuber.todoapp.model.Task;
 import dev.ffeusthuber.todoapp.model.User;
-import dev.ffeusthuber.todoapp.presentation.add_edit_task.NewTaskActivity;
+import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
     private static final String TAG = "ToDoListActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     public void onClick(View view){
         int id = view.getId();
         if (id == R.id.btnNewTask) {
-            openActivityNewTask();
+            ActivityStarter.openActivityNewTask(ToDoListActivity.this);
         }
     }
 
@@ -88,20 +87,11 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         Toast.makeText(ToDoListActivity.this, "Logout", Toast.LENGTH_SHORT).show();
     }
 
-    private void openActivityNewTask(){
-        Intent intent = new Intent(this, NewTaskActivity.class);
-        startActivity(intent);
-    }
-
-    private void openActivityLogin(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         if(firebaseAuth.getCurrentUser() == null){
             Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
-            openActivityLogin();
+            ActivityStarter.openActivityLogin(ToDoListActivity.this);
         }
     }
 

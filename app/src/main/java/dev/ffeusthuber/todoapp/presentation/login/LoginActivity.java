@@ -1,12 +1,12 @@
 package dev.ffeusthuber.todoapp.presentation.login;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -31,8 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             Log.d(TAG, "onCreate: User already signed in. Starting ToDoListActivity");
-            Intent intent =new Intent(this, ToDoListActivity.class);
-            startActivity(intent);
+            ActivityStarter.openActivityToDoList(LoginActivity.this);
             this.finish();
         }
 
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result){
         if(result.getResultCode() == RESULT_OK){
             Log.d(TAG, "onSignInResult: Sign in Success");
-            openActivityToDoList();
+            ActivityStarter.openActivityToDoList(LoginActivity.this);
         } else{
             IdpResponse response = result.getIdpResponse();
             if(response == null){
@@ -73,13 +72,4 @@ public class LoginActivity extends AppCompatActivity {
         //TODO: add logo
         signInLauncher.launch(signInIntent);
     }
-
-    private void openActivityToDoList(){
-        Log.d(TAG, "openActivityToDoList: starting ActivityToDoList");
-        Intent intent = new Intent(this, ToDoListActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
-
-
 }
