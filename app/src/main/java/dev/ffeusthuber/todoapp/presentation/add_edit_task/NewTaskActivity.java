@@ -9,17 +9,13 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Calendar;
-import java.util.Date;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.data.DBConnection;
-import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
-import dev.ffeusthuber.todoapp.model.Task;
+
+import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
-import dev.ffeusthuber.todoapp.util.DateParser;
+
 
 public class NewTaskActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -27,8 +23,9 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText edtTxtTaskTitle;
     private EditText edtTxtTaskDescription;
     private EditText edtTxtTaskCompletionDate;
-    private final DateParser dateParser = new DateParser();
-    private final DBConnection con = new DBConnectionImpl_Firestore();
+
+    private final TaskHandler taskHandler = new TaskHandler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +41,18 @@ public class NewTaskActivity extends AppCompatActivity {
         int id = view.getId();
         if (id == R.id.btnCreateTask) {
             Log.d(TAG, "onClick: User clicked btnCreateTask");
-            con.saveTask(buildTaskObject());
+            //TODO: add functionality to save tasks for other users
+            taskHandler.saveNewTask(
+                    edtTxtTaskTitle.getText().toString(),
+                    edtTxtTaskDescription.getText().toString(),
+                    edtTxtTaskCompletionDate.getText().toString());
             ActivityStarter.openActivityToDoList(NewTaskActivity.this);
-        } else if (id == R.id.btnCancel) {
+        }
+        else if (id == R.id.btnCancel) {
             Log.d(TAG, "onClick: User clicked btnCancel");
             ActivityStarter.openActivityToDoList(NewTaskActivity.this);
-        } else if (id == R.id.edtTxtTaskFinishDate || id == R.id.ibtnCalendar) {
+        }
+        else if (id == R.id.edtTxtTaskFinishDate || id == R.id.ibtnCalendar) {
             final Calendar calendar = Calendar.getInstance();
             int finishDateDay = calendar.get(Calendar.DATE);
             int finishDateMonth = calendar.get(Calendar.MONTH);
@@ -62,16 +65,5 @@ public class NewTaskActivity extends AppCompatActivity {
             }, finishDateYear, finishDateMonth, finishDateDay);
             datePickerDialog.show();
         }
-    }
-
-    private Task buildTaskObject() {
-        return new Task(
-                edtTxtTaskTitle.getText().toString(),
-                edtTxtTaskDescription.getText().toString(),
-                FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                false,
-                new Date(),
-                dateParser.parseStringtoDate(edtTxtTaskCompletionDate.getText().toString()),
-                false);
     }
 }

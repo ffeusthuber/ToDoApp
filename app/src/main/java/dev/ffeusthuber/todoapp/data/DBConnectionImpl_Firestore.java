@@ -47,13 +47,14 @@ public class DBConnectionImpl_Firestore implements DBConnection{
 
     @Override
     public Task getTask(String documentId) {
+        Task test = new Task();
         usersCollRef
                 .document(documentId)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //task = documentSnapshot.toObject(Task.class);
+                        //test = documentSnapshot.toObject(Task.class);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

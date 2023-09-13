@@ -17,16 +17,12 @@ import androidx.transition.TransitionManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import java.util.ArrayList;
-
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
 
-public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecViewAdapter.TaskViewHolder>{
+public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecyclerAdapter.TaskViewHolder>{
 
-    private ArrayList<Task> toDoList = new ArrayList<>();
-
-    public ToDoListRecViewAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
+    public ToDoListRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
         super(options);
     }
 
@@ -40,15 +36,16 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
     @Override
     protected void onBindViewHolder(@NonNull TaskViewHolder holder, int position, @NonNull Task task) {
         holder.txtTaskTitle.setText(task.getTitle());
+        holder.txtTaskDescription.setText(task.getDescription());
         holder.cbTaskFinished.setChecked(task.getIsCompleted());
-        CharSequence dateCharSeq = DateFormat.format("EEE, MMM, d, yyy", task.getDateCreated());
-        //holder.txtTaskFinishDate.setText(toDoList.get(position).getFinishDate().toString());
+        CharSequence dateCharSeq = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCreated());
+        holder.txtTaskFinishDate.setText(dateCharSeq);
 
-        handleExpandedLayoutVisibility(holder, position);
+        handleExpandedLayoutVisibility(holder, task);
     }
 
-    private void handleExpandedLayoutVisibility(TaskViewHolder holder, int position){
-        if (toDoList.get(position).getIsCardviewExpanded()) {
+    private void handleExpandedLayoutVisibility(TaskViewHolder holder, Task task){
+        if (task.getIsCardviewExpanded()) {
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.VISIBLE);
             holder.ibtnTaskDropdown.setVisibility(View.GONE);
@@ -59,45 +56,38 @@ public class ToDoListRecViewAdapter extends FirestoreRecyclerAdapter<Task, ToDoL
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return toDoList.size();
-    }
-
-    public void setToDoList(ArrayList<Task> toDoList) {
-        this.toDoList = toDoList;
-        notifyDataSetChanged();
-    }
-
     public class TaskViewHolder extends RecyclerView.ViewHolder{
         private final CardView cvItemTask;
         private final TextView txtTaskTitle;
+        private final TextView txtTaskDescription;
+        private final TextView txtTaskFinishDate;
         private final CheckBox cbTaskFinished;
         private final ImageButton ibtnTaskDropdown;
+        private final ImageButton ibtnTaskDropup;
         private final ConstraintLayout expandedTaskLayout;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             cvItemTask = itemView.findViewById(R.id.cvItemTask);
             txtTaskTitle = itemView.findViewById(R.id.txtTaskTitle);
+            txtTaskDescription = itemView.findViewById(R.id.txtTaskDescription);
+            txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
             cbTaskFinished = itemView.findViewById(R.id.cbTaskFinished);
             ibtnTaskDropdown = itemView.findViewById(R.id.ibtnTaskDropdown);
-
+            ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
             expandedTaskLayout = itemView.findViewById(R.id.expandedTaskLayout);
-            ImageButton ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
-            TextView txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
 
             ibtnTaskDropdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switchExpandView(toDoList.get(getBindingAdapterPosition()));
+                    switchExpandView(getItem(getBindingAdapterPosition()));
                 }
             });
 
             ibtnTaskDropup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switchExpandView(toDoList.get(getBindingAdapterPosition()));
+                    switchExpandView(getItem(getBindingAdapterPosition()));
                 }
             });
         }

@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -21,33 +20,20 @@ import com.google.firebase.firestore.Query;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
-import dev.ffeusthuber.todoapp.model.User;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
     private static final String TAG = "ToDoListActivity";
+    private RecyclerView toDoListRecView;
+    private ToDoListRecyclerAdapter toDoListRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
 
-        RecyclerView toDoListRecView = findViewById(R.id.recViewToDoList);
+        toDoListRecView = findViewById(R.id.recViewToDoList);
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
-
-        User currentUser = new User();
-
-        //TODO: Load users Todolist
-        //currentUser.addTask(new Task("Add database"));
-        //currentUser.addTask(new Task("Rework UI"));
-        //currentUser.addTask(new Task("Implement Login"));
-
-        Query query = FirebaseFirestore.getInstance().collection("Tasks");
-        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>().setQuery(query, Task.class).build();
-        ToDoListRecViewAdapter adapter = new ToDoListRecViewAdapter(options);
-        adapter.setToDoList(currentUser.getTasks());
-        toDoListRecView.setAdapter(adapter);
-        toDoListRecView.setLayoutManager(new LinearLayoutManager(ToDoListActivity.this));
 
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -72,6 +58,9 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     protected void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
+        if (toDoListRecyclerAdapter != null){
+            toDoListRecyclerAdapter.stopListening();
+        }
     }
 
     public void onClick(View view){
@@ -93,6 +82,23 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
             ActivityStarter.openActivityLogin(ToDoListActivity.this);
         }
+        else{
+            initRecyclerView(firebaseAuth.getCurrentUser().getUid());
+        }
+
+    }
+
+    private void initRecyclerView(String userID){
+        Query query = FirebaseFirestore.getInstance()
+                .collection("tasks")
+                .whereEqualTo("userId", userID);
+        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
+                .setQuery(query, Task.class)
+                .build();
+        toDoListRecyclerAdapter = new ToDoListRecyclerAdapter(options);
+        toDoListRecView.setAdapter(toDoListRecyclerAdapter);
+
+        toDoListRecyclerAdapter.startListening();
     }
 
 
