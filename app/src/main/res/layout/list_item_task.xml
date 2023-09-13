@@ -59,16 +59,67 @@
             android:id="@+id/expandedTaskLayout"
             app:layout_constraintTop_toBottomOf="@id/collapsedTaskLayout"
             app:layout_constraintStart_toStartOf="@id/collapsedTaskLayout"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/txtTaskFinishDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Task Finish Date"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/labelTaskCreationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="144dp"
+                android:text="Created on:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTaskCreationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Task Creation Date"
+                app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreationDate"
+                app:layout_constraintStart_toEndOf="@+id/labelTaskCreationDate"
+                app:layout_constraintTop_toTopOf="@+id/labelTaskCreationDate" />
+
+            <TextView
+                android:id="@+id/labelTaskCreator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="104dp"
+                android:text="Created by:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTaskCreator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Task Creator"
+                app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreator"
+                app:layout_constraintStart_toEndOf="@+id/labelTaskCreator"
+                app:layout_constraintTop_toTopOf="@+id/labelTaskCreator" />
+
+            <TextView
+                android:id="@+id/txtTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="76dp"
+                android:text="Task Description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/ibtnTaskDropup"
@@ -76,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/dropup_taskdetails"
                 android:src="@drawable/ic_task_dropup"
-                app:layout_constraintTop_toBottomOf="@+id/txtTaskFinishDate"
+                app:layout_constraintTop_toBottomOf="@+id/txtTaskCreationDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
 
