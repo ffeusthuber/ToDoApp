@@ -9,7 +9,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Calendar;
+import java.util.Objects;
 
 import dev.ffeusthuber.todoapp.R;
 
@@ -44,6 +47,7 @@ public class NewTaskActivity extends AppCompatActivity {
             //TODO: add functionality to save tasks for other users
             taskHandler.saveNewTask(
                     edtTxtTaskTitle.getText().toString(),
+                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
                     edtTxtTaskDescription.getText().toString(),
                     edtTxtTaskCompletionDate.getText().toString());
             ActivityStarter.openActivityToDoList(NewTaskActivity.this);

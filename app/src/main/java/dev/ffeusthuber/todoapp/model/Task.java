@@ -1,5 +1,7 @@
 package dev.ffeusthuber.todoapp.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.Exclude;
 
 import java.util.Date;
@@ -8,8 +10,9 @@ public class Task {
     private String title;
     private String description;
     private String userId;
+    private String creatorId;
     private boolean isCompleted;
-    private Date dateCreated;
+    private Date dateCreation;
     private Date dateCompletion;
     private boolean isCardviewExpanded;
 
@@ -18,12 +21,13 @@ public class Task {
         //needed for firestore
     }
 
-    public Task(String title, String description, String userId, boolean isCompleted, Date dateCreated, Date dateCompletion, boolean isCardviewExpanded) {
+    public Task(String title, String description, String userId, String creatorId, boolean isCompleted, Date dateCreation, Date dateCompletion, boolean isCardviewExpanded) {
         this.title = title;
         this.description = description;
         this.userId = userId;
+        this.creatorId = creatorId;
         this.isCompleted = isCompleted;
-        this.dateCreated = dateCreated;
+        this.dateCreation = dateCreation;
         this.dateCompletion = dateCompletion;
         this.isCardviewExpanded = isCardviewExpanded;
     }
@@ -52,6 +56,14 @@ public class Task {
         this.userId = userId;
     }
 
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
     public boolean getIsCompleted() {
         return isCompleted;
     }
@@ -68,12 +80,12 @@ public class Task {
         this.dateCompletion = dateCompletion;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     @Exclude
@@ -86,6 +98,7 @@ public class Task {
         isCardviewExpanded = cardviewExpanded;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Task{" +
@@ -93,7 +106,7 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", uid='" + userId + '\'' +
                 ", isCompleted=" + isCompleted +
-                ", dateCreated=" + dateCreated +
+                ", dateCreated=" + dateCreation +
                 ", dateCompletion=" + dateCompletion +
                 ", isCardviewExpanded=" + isCardviewExpanded +
                 '}';

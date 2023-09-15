@@ -37,10 +37,12 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
     protected void onBindViewHolder(@NonNull TaskViewHolder holder, int position, @NonNull Task task) {
         holder.txtTaskTitle.setText(task.getTitle());
         holder.txtTaskDescription.setText(task.getDescription());
-        holder.cbTaskFinished.setChecked(task.getIsCompleted());
-        CharSequence dateCharSeq = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCreated());
-        holder.txtTaskFinishDate.setText(dateCharSeq);
-
+        holder.cbTaskCompleted.setChecked(task.getIsCompleted());
+        CharSequence dateCharSeqCreation = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCreation());
+        holder.txtTaskDateCreation.setText(dateCharSeqCreation);
+        holder.txtTaskCreator.setText(task.getCreatorId());
+        CharSequence dateCharSeqCompletion = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCompletion());
+        holder.txtTaskDateCompletion.setText(dateCharSeqCompletion);
         handleExpandedLayoutVisibility(holder, task);
     }
 
@@ -48,11 +50,15 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
         if (task.getIsCardviewExpanded()) {
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.VISIBLE);
-            holder.ibtnTaskDropdown.setVisibility(View.GONE);
+            holder.ibtnTaskDropdown.setVisibility(View.INVISIBLE);
+            holder.ibtnTaskDropdown.setClickable(false);
+            holder.ibtnTaskDropup.setVisibility(View.VISIBLE);
         } else {
             TransitionManager.beginDelayedTransition(holder.cvItemTask);
             holder.expandedTaskLayout.setVisibility(View.GONE);
             holder.ibtnTaskDropdown.setVisibility(View.VISIBLE);
+            holder.ibtnTaskDropdown.setClickable(true);
+            holder.ibtnTaskDropup.setVisibility(View.GONE);
         }
     }
 
@@ -60,8 +66,10 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
         private final CardView cvItemTask;
         private final TextView txtTaskTitle;
         private final TextView txtTaskDescription;
-        private final TextView txtTaskFinishDate;
-        private final CheckBox cbTaskFinished;
+        private final TextView txtTaskDateCreation;
+        private final TextView txtTaskCreator;
+        private final TextView txtTaskDateCompletion;
+        private final CheckBox cbTaskCompleted;
         private final ImageButton ibtnTaskDropdown;
         private final ImageButton ibtnTaskDropup;
         private final ConstraintLayout expandedTaskLayout;
@@ -71,8 +79,10 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
             cvItemTask = itemView.findViewById(R.id.cvItemTask);
             txtTaskTitle = itemView.findViewById(R.id.txtTaskTitle);
             txtTaskDescription = itemView.findViewById(R.id.txtTaskDescription);
-            txtTaskFinishDate = itemView.findViewById(R.id.txtTaskFinishDate);
-            cbTaskFinished = itemView.findViewById(R.id.cbTaskFinished);
+            txtTaskDateCreation = itemView.findViewById(R.id.txtTaskDateCreation);
+            txtTaskCreator = itemView.findViewById(R.id.txtTaskCreator);
+            txtTaskDateCompletion = itemView.findViewById(R.id.txtTaskDateCompletion);
+            cbTaskCompleted = itemView.findViewById(R.id.cbTaskCompleted);
             ibtnTaskDropdown = itemView.findViewById(R.id.ibtnTaskDropdown);
             ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
             expandedTaskLayout = itemView.findViewById(R.id.expandedTaskLayout);

@@ -8,47 +8,67 @@
     android:padding="10dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/grey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
+            android:id="@+id/collapsedTaskLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/collapsedTaskLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <CheckBox
-                android:id="@+id/cbTaskFinished"
+                android:id="@+id/cbTaskCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+            <ImageButton
+                android:id="@+id/ibtnTaskDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@color/dark_blue"
+                android:contentDescription="@string/dropdown_taskdetails"
+                android:src="@drawable/ic_task_dropdown" />
+
+            <ImageButton
+                android:id="@+id/ibtnTaskDropup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@color/dark_blue"
+                android:contentDescription="@string/dropup_taskdetails"
+                android:src="@drawable/ic_task_dropup"
+                android:visibility="gone" />
+
 
             <TextView
                 android:id="@+id/txtTaskTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
                 android:text="Task Title"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/cbTaskFinished"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/cbTaskCompleted"
+                android:layout_toRightOf="@id/cbTaskCompleted"
+                android:layout_toStartOf="@id/ibtnTaskDropdown"
+                />
 
-            <ImageButton
-                android:id="@+id/ibtnTaskDropdown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/dropdown_taskdetails"
-                android:src="@drawable/ic_task_dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/cbTaskFinished"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cbTaskFinished"
-                tools:ignore="TouchTargetSizeCheck" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,51 +76,86 @@
             android:id="@+id/expandedTaskLayout"
             app:layout_constraintTop_toBottomOf="@id/collapsedTaskLayout"
             app:layout_constraintStart_toStartOf="@id/collapsedTaskLayout"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:paddingHorizontal="16dp">
 
-            <TextView
-                android:id="@+id/labelTaskFinishDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="To finish until:"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTaskFinishDate"
-                app:layout_constraintEnd_toStartOf="@+id/txtTaskFinishDate"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txtTaskFinishDate"
-                app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/txtTaskFinishDate"
-                android:layout_width="wrap_content"
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="116dp"
-                android:layout_marginTop="12dp"
-                android:text="Task Finish Date"
-                android:textStyle="bold"
+                android:id="@+id/trTaskDateCompletion"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/labelTaskFinishDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/to_finish_unitl"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtTaskDateCompletion"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/txtTaskDateCompletion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Finish Date"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </TableRow>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/trTaskDateCompletion"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/llTaskDescription"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/labelTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/txtTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Task Description"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelTaskDescription"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TableRow
                 android:id="@+id/trCreationDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTaskDescription">
-
+                app:layout_constraintTop_toBottomOf="@+id/llTaskDescription">
 
                 <TextView
                     android:id="@+id/labelTaskCreationDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Created on:"
+                    android:text="@string/created_on"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txtTaskCreationDate"
+                    android:id="@+id/txtTaskDateCreation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -111,45 +166,34 @@
                     app:layout_constraintTop_toTopOf="@+id/labelTaskCreationDate" />
             </TableRow>
 
-            <TextView
-                android:id="@+id/labelTaskCreator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Created by:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trCreationDate" />
 
-            <TextView
-                android:id="@+id/txtTaskCreator"
-                android:layout_width="wrap_content"
+            <TableRow
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Task Creator"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreator"
-                app:layout_constraintStart_toEndOf="@+id/labelTaskCreator"
-                app:layout_constraintTop_toTopOf="@+id/labelTaskCreator" />
-
-            <TextView
-                android:id="@+id/txtTaskDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Task Description"
-                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/trCreationDate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTaskFinishDate" />
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/labelTaskCreator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/created_by"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trCreationDate" />
 
-            <ImageButton
-                android:id="@+id/ibtnTaskDropup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/dropup_taskdetails"
-                android:src="@drawable/ic_task_dropup"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trCreationDate"
-                tools:ignore="TouchTargetSizeCheck" />
+                <TextView
+                    android:id="@+id/txtTaskCreator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Task Creator"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreator"
+                    app:layout_constraintStart_toEndOf="@+id/labelTaskCreator"
+                    app:layout_constraintTop_toTopOf="@+id/labelTaskCreator" />
+
+            </TableRow>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

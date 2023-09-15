@@ -13,20 +13,22 @@ public class TaskHandler {
     private final DBConnection con = new DBConnectionImpl_Firestore();
 
 
-    public void saveNewTask(String taskTitle, String taskDescription, String dateString){
+    public void saveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString){
         con.saveTask(new Task(
                 taskTitle,
                 taskDescription,
                 Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
+                taskCreator,
                 false,
                 new Date(),
                 DateParser.parseStringtoDate(dateString),
                 false));
     }
-    public void saveNewTask(String taskTitle, String taskDescription, String dateString, String userId){
+    public void saveNewTask(String taskTitle,String taskCreator, String taskDescription, String dateString, String userId){
         con.saveTask(new Task(
                 taskTitle,
                 taskDescription,
+                taskCreator,
                 userId,
                 false,
                 new Date(),
