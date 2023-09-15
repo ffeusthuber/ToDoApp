@@ -121,9 +121,14 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
             task.setCardviewExpanded(!task.getIsCardviewExpanded());
             notifyItemChanged(getBindingAdapterPosition());
         }
+
+        public void deleteTask(RecyclerView toDoListRecView){
+            taskListener.handleDeleteTask(getSnapshots().getSnapshot(getBindingAdapterPosition()),toDoListRecView);
+        }
     }
 
-    interface TaskListener{
+    public interface TaskListener{
         void handleCheckChanged(DocumentSnapshot ds, boolean isChecked);
+        void handleDeleteTask(DocumentSnapshot ds, RecyclerView toDoListRecView);
     }
 }

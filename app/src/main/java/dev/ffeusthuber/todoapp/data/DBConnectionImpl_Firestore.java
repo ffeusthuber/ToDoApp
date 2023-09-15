@@ -14,14 +14,13 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 
 import dev.ffeusthuber.todoapp.model.Task;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListRecyclerAdapter;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
     private final CollectionReference tasksCollRef;
     private final CollectionReference usersCollRef;
-    ArrayList<Task> tasks = new ArrayList<>();
 
     public DBConnectionImpl_Firestore(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -29,6 +28,7 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         usersCollRef = db.collection("users");
     }
 
+    @Override
     public void saveTask(Task task){
         tasksCollRef.document()
                 .set(task)
@@ -68,13 +68,13 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
-    public ToDoListRecyclerAdapter getToDoListRecyclerAdapter(String userId, ToDoListActivity activity) {
+    public ToDoListRecyclerAdapter getToDoListRecyclerAdapter(String userId, TaskHandler taskHandler) {
         Query query = tasksCollRef
                 .whereEqualTo("userId", userId);
         FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
                 .setQuery(query, Task.class)
                 .build();
-        return new ToDoListRecyclerAdapter(options, activity);
+        return new ToDoListRecyclerAdapter(options, taskHandler);
     }
 
     @Override

@@ -18,4 +18,6 @@
     <string name="description">Beschreibung:</string>
     <string name="created_on">Erstellt am:</string>
     <string name="created_by">Erstellt von:</string>
+    <string name="task_deleted">Aufgabe gelöscht!</string>
+    <string name="undo">Rückgängig machen</string>
 </resources>

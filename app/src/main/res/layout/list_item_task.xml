@@ -91,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/to_finish_unitl"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txtTaskDateCompletion"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -104,7 +105,6 @@
                     android:layout_height="wrap_content"
                     android:text="Task Finish Date"
                     android:layout_marginStart="5dp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </TableRow>
@@ -123,6 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -131,7 +132,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Task Description"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/labelTaskDescription"/>
 
@@ -151,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/created_on"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,7 +161,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Task Creation Date"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreationDate"
                     app:layout_constraintStart_toEndOf="@+id/labelTaskCreationDate"
                     app:layout_constraintTop_toTopOf="@+id/labelTaskCreationDate" />
@@ -178,6 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/created_by"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/trCreationDate" />
 
@@ -187,7 +188,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Task Creator"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/labelTaskCreator"
                     app:layout_constraintStart_toEndOf="@+id/labelTaskCreator"
                     app:layout_constraintTop_toTopOf="@+id/labelTaskCreator" />

@@ -1,5 +1,6 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,22 +10,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.data.DBConnection;
 import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
+import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener, ToDoListRecyclerAdapter.TaskListener{
+public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     private static final String TAG = "ToDoListActivity";
+    private final TaskHandler taskHandler = new TaskHandler();
     private RecyclerView toDoListRecView;
     private ToDoListRecyclerAdapter toDoListRecyclerAdapter;
     private final DBConnection db = new DBConnectionImpl_Firestore();
@@ -89,27 +92,38 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     }
 
     private void initRecyclerView(String userID){
-        toDoListRecyclerAdapter = db.getToDoListRecyclerAdapter(userID,this);
+        toDoListRecyclerAdapter = db.getToDoListRecyclerAdapter(userID,taskHandler);
         toDoListRecView.setAdapter(toDoListRecyclerAdapter);
 
         toDoListRecyclerAdapter.startListening();
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(toDoListRecView);
     }
 
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
 
-    @Override
-    public void handleCheckChanged(DocumentSnapshot ds, boolean isChecked) {
-        ds.getReference().update("isCompleted", isChecked)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "onSuccess: Changed isCompleted on "+ds.getString("title"));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "onFailure: "+e.getLocalizedMessage());
-                    }
-                });
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if(direction == ItemTouchHelper.RIGHT){
+                ToDoListRecyclerAdapter.TaskViewHolder taskViewHolder = (ToDoListRecyclerAdapter.TaskViewHolder) viewHolder;
+                taskViewHolder.deleteTask(toDoListRecView);
+            }
+        }
 
-    }
+        @Override
+        public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
+
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addBackgroundColor(ContextCompat.getColor(ToDoListActivity.this, R.color.gold))
+                    .addActionIcon(R.drawable.ic_delete)
+                    .create()
+                    .decorate();
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    };
 }
