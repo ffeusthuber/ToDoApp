@@ -1,27 +1,19 @@
 package dev.ffeusthuber.todoapp.model;
 
-import java.util.ArrayList;
-
 public class User {
-    private final String username;
-    private final ArrayList<Task> tasks;
+    private String uId;
+    private  String username;
 
-    public User() {
-        //get existing Data
-       tasks = new ArrayList<>();
-       username = "TESTUSER1";
-    }
 
-    public void addTask(Task task){
-        tasks.add(task);
+    public User(String username){
+        //needed for Firebase
     }
 
-    public void removeTask(Task task){
-        tasks.remove(task);
+    public User(String uId, String username) {
+        this.uId = uId;
+        this.username = username;
     }
-    public ArrayList<Task> getTasks(){
-        return tasks;
-    }
+
 
     public String getUsername() {
         return username;

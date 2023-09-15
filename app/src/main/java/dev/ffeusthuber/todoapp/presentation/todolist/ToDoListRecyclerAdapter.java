@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,14 +17,17 @@ import androidx.transition.TransitionManager;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
 
 public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecyclerAdapter.TaskViewHolder>{
 
-    public ToDoListRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
+    TaskListener taskListener;
+    public ToDoListRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options, TaskListener taskListener) {
         super(options);
+        this.taskListener = taskListener;
     }
 
     @NonNull
@@ -87,6 +91,17 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
             ibtnTaskDropup = itemView.findViewById(R.id.ibtnTaskDropup);
             expandedTaskLayout = itemView.findViewById(R.id.expandedTaskLayout);
 
+            cbTaskCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    DocumentSnapshot ds = getSnapshots().getSnapshot(getBindingAdapterPosition());
+                    Task task = getItem(getBindingAdapterPosition());
+                    if (task.getIsCompleted() != isChecked){
+                        taskListener.handleCheckChanged(ds,isChecked);
+                    }
+                }
+            });
+
             ibtnTaskDropdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,5 +121,9 @@ public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDo
             task.setCardviewExpanded(!task.getIsCardviewExpanded());
             notifyItemChanged(getBindingAdapterPosition());
         }
+    }
+
+    interface TaskListener{
+        void handleCheckChanged(DocumentSnapshot ds, boolean isChecked);
     }
 }

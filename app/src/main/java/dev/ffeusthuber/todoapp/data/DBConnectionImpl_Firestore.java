@@ -4,17 +4,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
+import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
-import java.util.List;
 
 import dev.ffeusthuber.todoapp.model.Task;
+import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListRecyclerAdapter;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
@@ -66,40 +67,19 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         return null;
     }
 
-    public ArrayList<Task> getTasks(String username) {
-        updateTaskList(username);
-        return  tasks;
+    @Override
+    public ToDoListRecyclerAdapter getToDoListRecyclerAdapter(String userId, ToDoListActivity activity) {
+        Query query = tasksCollRef
+                .whereEqualTo("userId", userId);
+        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
+                .setQuery(query, Task.class)
+                .build();
+        return new ToDoListRecyclerAdapter(options, activity);
     }
 
     @Override
     public String getUserId(String username) {
         //implement query for UID
         return null;
-    }
-
-    private void updateTaskList(String username){
-        tasksCollRef.document(username)
-                .collection("Tasks")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        tasks.clear();
-                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                        System.out.println("................................");
-                        for(DocumentSnapshot ds:snapshotList){
-                            Task task = ds.toObject(Task.class);
-                            tasks.add(task);
-                        }
-                        System.out.println("................................");
-                        Log.d(TAG, "Retrieved all tasks!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, e.toString());
-                    }
-                });
     }
 }

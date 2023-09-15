@@ -16,4 +16,8 @@
     <string name="content_description_logout">Log out as current user</string>
     <string name="calendar">Calendar</string>
     <string name="task_description">Description</string>
+    <string name="to_finish_unitl">To finish until:</string>
+    <string name="description">Description:</string>
+    <string name="created_on">Created on:</string>
+    <string name="created_by">Created by:</string>
 </resources>
