@@ -29,8 +29,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     private static final String TAG = "ToDoListActivity";
     private final TaskHandler taskHandler = new TaskHandler();
     private RecyclerView toDoListRecView;
-    private ToDoListRecyclerAdapter toDoListRecyclerAdapter;
-    private final DBConnection db = new DBConnectionImpl_Firestore();
+    private TaskRecyclerAdapter taskRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,8 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     protected void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
-        if (toDoListRecyclerAdapter != null){
-            toDoListRecyclerAdapter.stopListening();
+        if (taskRecyclerAdapter != null){
+            taskRecyclerAdapter.stopListening();
         }
     }
 
@@ -88,14 +87,15 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             ActivityStarter.openActivityLogin(ToDoListActivity.this);
             return;
         }
+            Log.d(TAG, "onAuthStateChanged: Username = "+ firebaseAuth.getCurrentUser().getDisplayName());
             initRecyclerView(firebaseAuth.getCurrentUser().getUid());
     }
 
     private void initRecyclerView(String userID){
-        toDoListRecyclerAdapter = db.getToDoListRecyclerAdapter(userID,taskHandler);
-        toDoListRecView.setAdapter(toDoListRecyclerAdapter);
+        taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(userID);
+        toDoListRecView.setAdapter(taskRecyclerAdapter);
 
-        toDoListRecyclerAdapter.startListening();
+        taskRecyclerAdapter.startListening();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(toDoListRecView);
     }
@@ -109,7 +109,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.RIGHT){
-                ToDoListRecyclerAdapter.TaskViewHolder taskViewHolder = (ToDoListRecyclerAdapter.TaskViewHolder) viewHolder;
+                TaskRecyclerAdapter.TaskViewHolder taskViewHolder = (TaskRecyclerAdapter.TaskViewHolder) viewHolder;
                 taskViewHolder.deleteTask(toDoListRecView);
             }
         }

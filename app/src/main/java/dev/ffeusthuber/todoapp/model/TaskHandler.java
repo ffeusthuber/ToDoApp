@@ -6,12 +6,14 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.Date;
 import java.util.Objects;
@@ -19,10 +21,10 @@ import java.util.Objects;
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.data.DBConnection;
 import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListRecyclerAdapter;
+import dev.ffeusthuber.todoapp.presentation.todolist.TaskRecyclerAdapter;
 import dev.ffeusthuber.todoapp.util.DateParser;
 
-public class TaskHandler implements ToDoListRecyclerAdapter.TaskListener{
+public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
     private static final String TAG = "TaskHandler";
     private final DBConnection con = new DBConnectionImpl_Firestore();
 
@@ -48,6 +50,15 @@ public class TaskHandler implements ToDoListRecyclerAdapter.TaskListener{
                 new Date(),
                 DateParser.parseStringtoDate(dateString),
                 false));
+    }
+
+    public TaskRecyclerAdapter getTaskRecyclerAdapter(String userId) {
+        Query query = con.getQuery(userId);
+
+        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
+                .setQuery(query, Task.class)
+                .build();
+        return new TaskRecyclerAdapter(options, this);
     }
 
 

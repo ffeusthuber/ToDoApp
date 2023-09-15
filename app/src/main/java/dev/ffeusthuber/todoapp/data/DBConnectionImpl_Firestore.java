@@ -4,18 +4,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import java.util.ArrayList;
 
 import dev.ffeusthuber.todoapp.model.Task;
-import dev.ffeusthuber.todoapp.model.TaskHandler;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListRecyclerAdapter;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
@@ -67,14 +63,13 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         return null;
     }
 
-    @Override
-    public ToDoListRecyclerAdapter getToDoListRecyclerAdapter(String userId, TaskHandler taskHandler) {
+
+    public Query getQuery(String userId){
         Query query = tasksCollRef
-                .whereEqualTo("userId", userId);
-        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
-                .setQuery(query, Task.class)
-                .build();
-        return new ToDoListRecyclerAdapter(options, taskHandler);
+                .whereEqualTo("userId", userId)
+                .orderBy("isCompleted", Query.Direction.ASCENDING)
+                .orderBy("dateCompletion", Query.Direction.ASCENDING);
+        return query;
     }
 
     @Override

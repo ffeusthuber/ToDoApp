@@ -22,10 +22,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
 
-public class ToDoListRecyclerAdapter extends FirestoreRecyclerAdapter<Task, ToDoListRecyclerAdapter.TaskViewHolder>{
+public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecyclerAdapter.TaskViewHolder>{
 
     TaskListener taskListener;
-    public ToDoListRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options, TaskListener taskListener) {
+    public TaskRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options, TaskListener taskListener) {
         super(options);
         this.taskListener = taskListener;
     }
