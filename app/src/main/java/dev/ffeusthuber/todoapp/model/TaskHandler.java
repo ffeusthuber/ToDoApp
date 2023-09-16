@@ -29,7 +29,7 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
     private final DBConnection con = new DBConnectionImpl_Firestore();
 
 
-    public void saveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString){
+    public void handleSaveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString){
         con.saveTask(new Task(
                 taskTitle,
                 taskDescription,
@@ -40,7 +40,7 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
                 DateParser.parseStringtoDate(dateString),
                 false));
     }
-    public void saveNewTask(String taskTitle,String taskCreator, String taskDescription, String dateString, String userId){
+    public void handleSaveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString, String userId){
         con.saveTask(new Task(
                 taskTitle,
                 taskDescription,
@@ -50,33 +50,6 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
                 new Date(),
                 DateParser.parseStringtoDate(dateString),
                 false));
-    }
-
-    public TaskRecyclerAdapter getTaskRecyclerAdapter(String userId) {
-        Query query = con.getQuery(userId);
-
-        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
-                .setQuery(query, Task.class)
-                .build();
-        return new TaskRecyclerAdapter(options, this);
-    }
-
-
-    @Override
-    public void handleCheckChanged(DocumentSnapshot ds, boolean isChecked) {
-        ds.getReference().update("isCompleted", isChecked)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "onSuccess: Changed isCompleted on "+ds.getString("title"));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "onFailure: "+e.getLocalizedMessage());
-                    }
-                });
-
     }
 
     @Override
@@ -113,4 +86,30 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
 
     }
 
+    @Override
+    public void handleCheckChanged(DocumentSnapshot ds, boolean isChecked) {
+        ds.getReference().update("isCompleted", isChecked)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Changed isCompleted on "+ds.getString("title"));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: "+e.getLocalizedMessage());
+                    }
+                });
+
+    }
+    public FirestoreRecyclerOptions getFirestoreRecyclerOptions(Query query){
+        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
+                .setQuery(query, Task.class)
+                .build();
+        return options;
+    }
+    public TaskRecyclerAdapter getTaskRecyclerAdapter(Query query) {
+        FirestoreRecyclerOptions options = getFirestoreRecyclerOptions(query);
+        return new TaskRecyclerAdapter(options, this);
+    }
 }

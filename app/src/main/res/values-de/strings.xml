@@ -20,4 +20,7 @@
     <string name="created_by">Erstellt von:</string>
     <string name="task_deleted">Aufgabe gelöscht!</string>
     <string name="undo">Rückgängig machen</string>
+    <string name="sort_by">Sortiere ToDoListe</string>
+    <string name="content_description_sort_by">Wählen Sie eine Eigenschaft zum Sortieren der ToDoListe des Benutzers</string>
+    <string name="sort_by_title">Titel</string>
 </resources>

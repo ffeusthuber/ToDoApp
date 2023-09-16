@@ -19,8 +19,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.data.DBConnection;
-import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
+import dev.ffeusthuber.todoapp.data.QuerySelector;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -28,15 +27,17 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     private static final String TAG = "ToDoListActivity";
     private final TaskHandler taskHandler = new TaskHandler();
-    private RecyclerView toDoListRecView;
+    private final QuerySelector querySelector = new QuerySelector();
+    private RecyclerView taskRecyclerView;
     private TaskRecyclerAdapter taskRecyclerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
 
-        toDoListRecView = findViewById(R.id.recViewToDoList);
+        taskRecyclerView = findViewById(R.id.recViewToDoList);
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
 
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -45,6 +46,11 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
                 int id = item.getItemId();
                 if (id == R.id.logout){
                     logOutUser();
+                    return true;
+                } else if (id == R.id.sort_by_title) {
+                    Log.d(TAG, "onMenuItemClick: CLICKED SORT");
+                    querySelector.setOrderOption("title");
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     return true;
                 }
                 return false;
@@ -91,13 +97,16 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             initRecyclerView(firebaseAuth.getCurrentUser().getUid());
     }
 
-    private void initRecyclerView(String userID){
-        taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(userID);
-        toDoListRecView.setAdapter(taskRecyclerAdapter);
-
-        taskRecyclerAdapter.startListening();
+    private void initRecyclerView(String userId){
+        connectNewRecyclerAdapter(userId);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(toDoListRecView);
+        itemTouchHelper.attachToRecyclerView(taskRecyclerView);
+    }
+
+    private void connectNewRecyclerAdapter(String userId){
+        taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(querySelector.getQuery(userId));
+        taskRecyclerView.setAdapter(taskRecyclerAdapter);
+        taskRecyclerAdapter.startListening();
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
@@ -110,7 +119,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.RIGHT){
                 TaskRecyclerAdapter.TaskViewHolder taskViewHolder = (TaskRecyclerAdapter.TaskViewHolder) viewHolder;
-                taskViewHolder.deleteTask(toDoListRecView);
+                taskViewHolder.deleteTask(taskRecyclerView);
             }
         }
 

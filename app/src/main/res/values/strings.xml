@@ -22,4 +22,7 @@
     <string name="created_by">Created by:</string>
     <string name="task_deleted">Task deleted!</string>
     <string name="undo">Undo</string>
+    <string name="sort_by">Sort ToDoList</string>
+    <string name="content_description_sort_by">Choose a property to sort the users ToDoList</string>
+    <string name="sort_by_title">Title</string>
 </resources>

@@ -45,7 +45,7 @@ public class NewTaskActivity extends AppCompatActivity {
         if (id == R.id.btnCreateTask) {
             Log.d(TAG, "onClick: User clicked btnCreateTask");
             //TODO: add functionality to save tasks for other users
-            taskHandler.saveNewTask(
+            taskHandler.handleSaveNewTask(
                     edtTxtTaskTitle.getText().toString(),
                     Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
                     edtTxtTaskDescription.getText().toString(),
@@ -64,7 +64,7 @@ public class NewTaskActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(NewTaskActivity.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    edtTxtTaskCompletionDate.setText(getString(R.string.task_display_finishdate, day, month, year));
+                    edtTxtTaskCompletionDate.setText(getString(R.string.task_display_finishdate, day, month+1, year));
                 }
             }, finishDateYear, finishDateMonth, finishDateDay);
             datePickerDialog.show();

@@ -15,14 +15,8 @@ import dev.ffeusthuber.todoapp.model.Task;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
-    private final CollectionReference tasksCollRef;
-    private final CollectionReference usersCollRef;
-
-    public DBConnectionImpl_Firestore(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        tasksCollRef = db.collection("tasks");
-        usersCollRef = db.collection("users");
-    }
+    static final CollectionReference tasksCollRef = FirebaseFirestore.getInstance().collection("tasks");
+    static final CollectionReference usersCollRef = FirebaseFirestore.getInstance().collection("users");
 
     @Override
     public void saveTask(Task task){
@@ -64,11 +58,22 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
 
-    public Query getQuery(String userId){
-        Query query = tasksCollRef
-                .whereEqualTo("userId", userId)
-                .orderBy("isCompleted", Query.Direction.ASCENDING)
-                .orderBy("dateCompletion", Query.Direction.ASCENDING);
+    public Query getQuery(String userId, String orderOption){
+        Query query;
+        switch (orderOption){
+            case("title"):
+                query = tasksCollRef
+                        .whereEqualTo("userId", userId)
+                        .orderBy("isCompleted", Query.Direction.ASCENDING)
+                        .orderBy("title", Query.Direction.ASCENDING);
+                break;
+            default:
+                query  = tasksCollRef
+                    .whereEqualTo("userId", userId)
+                    .orderBy("isCompleted", Query.Direction.ASCENDING)
+                    .orderBy("dateCompletion", Query.Direction.ASCENDING);
+        }
+
         return query;
     }
 
