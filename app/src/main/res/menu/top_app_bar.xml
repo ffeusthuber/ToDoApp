@@ -4,15 +4,30 @@
     <item
         android:id="@+id/sort_by"
         android:icon="@drawable/ic_sort"
-        android:title="@string/sort_by"
+        android:title="@string/sort_todolist"
         android:contentDescription="@string/content_description_sort_by"
         app:showAsAction="ifRoom">
 
         <menu>
             <item
                 android:id="@+id/sort_by_title"
-                android:title="@string/sort_by_title"
-                android:contentDescription="@string/content_description_sort_by"/>
+                android:title="@string/title"
+                android:contentDescription="@string/content_description_sort_by_title"/>
+
+            <item
+                android:id="@+id/sort_by_keyword"
+                android:title="@string/keyword"
+                android:contentDescription="@string/content_description_sort_by_keyword"/>
+
+            <item
+                android:id="@+id/sort_by_creationdate"
+                android:title="@string/creationdate"
+                android:contentDescription="@string/content_description_sort_by_creationdate"/>
+
+            <item
+                android:id="@+id/sort_by_completiondate"
+                android:title="@string/completiondate"
+                android:contentDescription="@string/content_description_sort_by_completiondate"/>
         </menu>
     </item>
 

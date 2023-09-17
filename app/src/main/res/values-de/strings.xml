@@ -3,7 +3,7 @@
     <string name="app_name">ToDoApp</string>
     <string name="todo_list">ToDo Liste</string>
     <string name="create_new_task">Erstellen Sie eine neue Aufgabe!</string>
-    <string name="task_title">Titel</string>
+    <string name="title">Titel</string>
     <string name="task_finishdate">Abschlussdatum</string>
     <string name="cancel">Abbrechen</string>
     <string name="create_task">Aufgabe Erstellen</string>
@@ -20,7 +20,14 @@
     <string name="created_by">Erstellt von:</string>
     <string name="task_deleted">Aufgabe gelöscht!</string>
     <string name="undo">Rückgängig machen</string>
-    <string name="sort_by">Sortiere ToDoListe</string>
+    <string name="sort_todolist">Sortiere ToDoListe</string>
     <string name="content_description_sort_by">Wählen Sie eine Eigenschaft zum Sortieren der ToDoListe des Benutzers</string>
-    <string name="sort_by_title">Titel</string>
+    <string name="content_description_sort_by_title">Aufgaben nach ihren Titeln sortieren</string>
+    <string name="keyword">Schlüsselwort</string>
+    <string name="keyword2">Schlüsselwort:</string>
+    <string name="content_description_sort_by_keyword">Aufgaben nach ihren Schlüsselwörtern sortieren</string>
+    <string name="creationdate">Erstellungsdatum</string>
+    <string name="content_description_sort_by_creationdate">Aufgaben nach ihren Erstellungsdaten sortieren</string>
+    <string name="completiondate">Fertigstellungsdatum</string>
+    <string name="content_description_sort_by_completiondate">Aufgaben nach ihren Fertigstellungdaten sortieren</string>
 </resources>

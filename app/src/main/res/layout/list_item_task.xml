@@ -63,7 +63,6 @@
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/cbTaskCompleted"
-                android:layout_toRightOf="@id/cbTaskCompleted"
                 android:layout_toStartOf="@id/ibtnTaskDropdown"
                 />
 
@@ -109,13 +108,43 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/trTaskKeyword"
+                app:layout_constraintStart_toStartOf="@+id/trTaskDateCompletion"
+                app:layout_constraintTop_toBottomOf="@+id/trTaskDateCompletion"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/labelTaskKeyword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/keyword2"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtTaskDateCompletion"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/txtTaskKeyword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Keyword"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </TableRow>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/trTaskDateCompletion"
+                app:layout_constraintTop_toBottomOf="@+id/trTaskKeyword"
                 app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/llTaskDescription"
+                android:id="@+id/clTaskDescription"
                 android:layout_marginTop="5dp">
 
                 <TextView
@@ -144,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llTaskDescription">
+                app:layout_constraintTop_toBottomOf="@+id/clTaskDescription">
 
                 <TextView
                     android:id="@+id/labelTaskCreationDate"

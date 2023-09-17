@@ -26,6 +26,7 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText edtTxtTaskTitle;
     private EditText edtTxtTaskDescription;
     private EditText edtTxtTaskCompletionDate;
+    private EditText edtTxtTaskKeyword;
 
     private final TaskHandler taskHandler = new TaskHandler();
 
@@ -37,6 +38,7 @@ public class NewTaskActivity extends AppCompatActivity {
         edtTxtTaskTitle = findViewById(R.id.edtTxtTaskTitle);
         edtTxtTaskDescription = findViewById(R.id.edtTxtDescription);
         edtTxtTaskCompletionDate = findViewById(R.id.edtTxtTaskFinishDate);
+        edtTxtTaskKeyword = findViewById(R.id.edtTxtTaskKeyword);
     }
 
 
@@ -47,6 +49,7 @@ public class NewTaskActivity extends AppCompatActivity {
             //TODO: add functionality to save tasks for other users
             taskHandler.handleSaveNewTask(
                     edtTxtTaskTitle.getText().toString(),
+                    edtTxtTaskKeyword.getText().toString(),
                     Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
                     edtTxtTaskDescription.getText().toString(),
                     edtTxtTaskCompletionDate.getText().toString());

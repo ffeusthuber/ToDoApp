@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class Task {
     private String title;
+    private String keyword;
     private String description;
     private String userId;
     private String creatorId;
@@ -21,8 +22,9 @@ public class Task {
         //needed for firestore
     }
 
-    public Task(String title, String description, String userId, String creatorId, boolean isCompleted, Date dateCreation, Date dateCompletion, boolean isCardviewExpanded) {
+    public Task(String title,String keyword, String description, String userId, String creatorId, boolean isCompleted, Date dateCreation, Date dateCompletion, boolean isCardviewExpanded) {
         this.title = title;
+        this.keyword = keyword;
         this.description = description;
         this.userId = userId;
         this.creatorId = creatorId;
@@ -38,6 +40,14 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getDescription() {

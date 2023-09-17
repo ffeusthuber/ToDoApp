@@ -29,9 +29,10 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
     private final DBConnection con = new DBConnectionImpl_Firestore();
 
 
-    public void handleSaveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString){
+    public void handleSaveNewTask(String taskTitle,String keyword, String taskCreator, String taskDescription, String dateString){
         con.saveTask(new Task(
                 taskTitle,
+                keyword,
                 taskDescription,
                 Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
                 taskCreator,
@@ -40,9 +41,10 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
                 DateParser.parseStringtoDate(dateString),
                 false));
     }
-    public void handleSaveNewTask(String taskTitle, String taskCreator, String taskDescription, String dateString, String userId){
+    public void handleSaveNewTask(String taskTitle,String keyword, String taskCreator, String taskDescription, String dateString, String userId){
         con.saveTask(new Task(
                 taskTitle,
+                keyword,
                 taskDescription,
                 taskCreator,
                 userId,
@@ -103,10 +105,9 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
 
     }
     public FirestoreRecyclerOptions getFirestoreRecyclerOptions(Query query){
-        FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
+        return new FirestoreRecyclerOptions.Builder<Task>()
                 .setQuery(query, Task.class)
                 .build();
-        return options;
     }
     public TaskRecyclerAdapter getTaskRecyclerAdapter(Query query) {
         FirestoreRecyclerOptions options = getFirestoreRecyclerOptions(query);

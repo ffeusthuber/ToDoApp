@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="@string/task_title"
+        android:hint="@string/title"
         android:inputType="text"
         android:maxLength="40"
         android:importantForAutofill="no"
@@ -33,11 +33,23 @@
         app:layout_constraintStart_toStartOf="@+id/txtNewTaskMessage"
         app:layout_constraintTop_toBottomOf="@+id/txtNewTaskMessage" />
 
+    <EditText
+        android:id="@+id/edtTxtTaskKeyword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="@string/keyword"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        app:layout_constraintEnd_toEndOf="@+id/edtTxtTaskTitle"
+        app:layout_constraintStart_toStartOf="@+id/edtTxtTaskTitle"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtTaskTitle" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/trTaskFinishDate"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtTaskTitle"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtTaskKeyword"
         android:layout_marginTop="32dp">
 
         <EditText

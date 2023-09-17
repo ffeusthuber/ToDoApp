@@ -48,8 +48,23 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
                     logOutUser();
                     return true;
                 } else if (id == R.id.sort_by_title) {
-                    Log.d(TAG, "onMenuItemClick: CLICKED SORT");
+                    Log.d(TAG, "onMenuItemClick: Sort by title");
                     querySelector.setOrderOption("title");
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    return true;
+                } else if (id == R.id.sort_by_keyword) {
+                    Log.d(TAG, "onMenuItemClick: Sort by keyword");
+                    querySelector.setOrderOption("keyword");
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    return true;
+                } else if (id == R.id.sort_by_creationdate) {
+                    Log.d(TAG, "onMenuItemClick: Sort by creation date");
+                    querySelector.setOrderOption("creationDate");
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    return true;
+                } else if (id == R.id.sort_by_completiondate) {
+                    Log.d(TAG, "onMenuItemClick: Sort by completion date");
+                    querySelector.setOrderOption("completionDate");
                     connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     return true;
                 }

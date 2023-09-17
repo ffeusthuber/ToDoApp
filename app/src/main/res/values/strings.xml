@@ -3,7 +3,7 @@
     <string name="todo_list">ToDo List</string>
     <string name="add_task_symbol" translatable="false">+</string>
     <string name="create_new_task">Create a new task!</string>
-    <string name="task_title">Title</string>
+    <string name="title">Title</string>
     <string name="task_finishdate">Finish Date</string>
     <string name="task_display_finishdate" translatable="false">%1$d.%2$d.%3$d</string>
     <string name="cancel">Cancel</string>
@@ -22,7 +22,14 @@
     <string name="created_by">Created by:</string>
     <string name="task_deleted">Task deleted!</string>
     <string name="undo">Undo</string>
-    <string name="sort_by">Sort ToDoList</string>
+    <string name="sort_todolist">Sort ToDoList</string>
     <string name="content_description_sort_by">Choose a property to sort the users ToDoList</string>
-    <string name="sort_by_title">Title</string>
+    <string name="content_description_sort_by_title">Sort tasks based on their title</string>
+    <string name="keyword">Keyword</string>
+    <string name="keyword2">Keyword:</string>
+    <string name="content_description_sort_by_keyword">Sort tasks based on a their keyword</string>
+    <string name="creationdate">Creation date</string>
+    <string name="content_description_sort_by_creationdate">Sort tasks based on a their creation date</string>
+    <string name="completiondate">Completion date</string>
+    <string name="content_description_sort_by_completiondate">Sort tasks based on a their completion date</string>
 </resources>

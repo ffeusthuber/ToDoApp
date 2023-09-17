@@ -41,6 +41,7 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
     @Override
     protected void onBindViewHolder(@NonNull TaskViewHolder holder, int position, @NonNull Task task) {
         holder.txtTaskTitle.setText(task.getTitle());
+        holder.txtTaskKeyword.setText(task.getKeyword());
         holder.txtTaskDescription.setText(task.getDescription());
         holder.cbTaskCompleted.setChecked(task.getIsCompleted());
         CharSequence dateCharSeqCreation = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCreation());
@@ -76,6 +77,7 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
     public class TaskViewHolder extends RecyclerView.ViewHolder{
         private final CardView cvItemTask;
         private final TextView txtTaskTitle;
+        private final TextView txtTaskKeyword;
         private final TextView txtTaskDescription;
         private final TextView txtTaskDateCreation;
         private final TextView txtTaskCreator;
@@ -89,6 +91,7 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
             super(itemView);
             cvItemTask = itemView.findViewById(R.id.cvItemTask);
             txtTaskTitle = itemView.findViewById(R.id.txtTaskTitle);
+            txtTaskKeyword = itemView.findViewById(R.id.txtTaskKeyword);
             txtTaskDescription = itemView.findViewById(R.id.txtTaskDescription);
             txtTaskDateCreation = itemView.findViewById(R.id.txtTaskDateCreation);
             txtTaskCreator = itemView.findViewById(R.id.txtTaskCreator);
