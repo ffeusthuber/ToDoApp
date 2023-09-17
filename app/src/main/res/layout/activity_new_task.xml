@@ -56,7 +56,7 @@
             android:id="@+id/edtTxtTaskFinishDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/task_finishdate"
+            android:hint="@string/task_completionDate"
             android:onClick="onClick"
             android:focusableInTouchMode="false"
             android:minHeight="48dp"

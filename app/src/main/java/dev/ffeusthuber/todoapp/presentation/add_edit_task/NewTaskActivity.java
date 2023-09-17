@@ -1,12 +1,14 @@
 package dev.ffeusthuber.todoapp.presentation.add_edit_task;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,13 +49,11 @@ public class NewTaskActivity extends AppCompatActivity {
         if (id == R.id.btnCreateTask) {
             Log.d(TAG, "onClick: User clicked btnCreateTask");
             //TODO: add functionality to save tasks for other users
-            taskHandler.handleSaveNewTask(
-                    edtTxtTaskTitle.getText().toString(),
-                    edtTxtTaskKeyword.getText().toString(),
-                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
-                    edtTxtTaskDescription.getText().toString(),
-                    edtTxtTaskCompletionDate.getText().toString());
-            ActivityStarter.openActivityToDoList(NewTaskActivity.this);
+            if (validData()) {
+                saveNewTask();
+                ActivityStarter.openActivityToDoList(NewTaskActivity.this);
+            }
+
         }
         else if (id == R.id.btnCancel) {
             Log.d(TAG, "onClick: User clicked btnCancel");
@@ -67,10 +67,40 @@ public class NewTaskActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(NewTaskActivity.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    edtTxtTaskCompletionDate.setText(getString(R.string.task_display_finishdate, day, month+1, year));
+                    edtTxtTaskCompletionDate.setText(getString(R.string.task_display_completionDate, day, month+1, year));
                 }
             }, finishDateYear, finishDateMonth, finishDateDay);
             datePickerDialog.show();
         }
+    }
+
+    private boolean validData(){
+        if(edtTxtTaskCompletionDate.getText().toString().isEmpty()){
+            displayMissingCompletionDateDialog();
+            return false;
+        }
+        //TODO: add check for username
+        return true;
+    }
+
+    private void displayMissingCompletionDateDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewTaskActivity.this);
+        builder.setMessage(R.string.missing_completionDate)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create().show();
+
+    }
+
+    private void saveNewTask(){
+        taskHandler.handleSaveNewTask(
+                edtTxtTaskTitle.getText().toString(),
+                edtTxtTaskKeyword.getText().toString(),
+                Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
+                edtTxtTaskDescription.getText().toString(),
+                edtTxtTaskCompletionDate.getText().toString());
     }
 }

@@ -4,7 +4,7 @@
     <string name="todo_list">ToDo Liste</string>
     <string name="create_new_task">Erstellen Sie eine neue Aufgabe!</string>
     <string name="title">Titel</string>
-    <string name="task_finishdate">Abschlussdatum</string>
+    <string name="task_completionDate">Abschlussdatum</string>
     <string name="cancel">Abbrechen</string>
     <string name="create_task">Aufgabe Erstellen</string>
     <string name="username">Benutzername</string>
@@ -30,4 +30,5 @@
     <string name="content_description_sort_by_creationdate">Aufgaben nach ihren Erstellungsdaten sortieren</string>
     <string name="completiondate">Fertigstellungsdatum</string>
     <string name="content_description_sort_by_completiondate">Aufgaben nach ihren Fertigstellungdaten sortieren</string>
+    <string name="missing_completionDate">Bitte fügen Sie der Aufgabe ein Fertigstellungsdatum hinzu</string>
 </resources>
