@@ -52,12 +52,14 @@ public class NewTaskActivity extends AppCompatActivity {
             if (validData()) {
                 saveNewTask();
                 ActivityStarter.openActivityToDoList(NewTaskActivity.this);
+                this.finish();
             }
 
         }
         else if (id == R.id.btnCancel) {
             Log.d(TAG, "onClick: User clicked btnCancel");
             ActivityStarter.openActivityToDoList(NewTaskActivity.this);
+            this.finish();
         }
         else if (id == R.id.edtTxtTaskFinishDate || id == R.id.ibtnCalendar) {
             final Calendar calendar = Calendar.getInstance();

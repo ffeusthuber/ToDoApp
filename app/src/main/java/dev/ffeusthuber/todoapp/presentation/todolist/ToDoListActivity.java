@@ -19,7 +19,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.data.QuerySelector;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -27,7 +26,6 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     private static final String TAG = "ToDoListActivity";
     private final TaskHandler taskHandler = new TaskHandler();
-    private final QuerySelector querySelector = new QuerySelector();
     private RecyclerView taskRecyclerView;
     private TaskRecyclerAdapter taskRecyclerAdapter;
 
@@ -49,23 +47,19 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
                     return true;
                 } else if (id == R.id.sort_by_title) {
                     Log.d(TAG, "onMenuItemClick: Sort by title");
-                    querySelector.setOrderOption("title");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(),"title");
                     return true;
                 } else if (id == R.id.sort_by_keyword) {
                     Log.d(TAG, "onMenuItemClick: Sort by keyword");
-                    querySelector.setOrderOption("keyword");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "keyword");
                     return true;
                 } else if (id == R.id.sort_by_creationdate) {
                     Log.d(TAG, "onMenuItemClick: Sort by creation date");
-                    querySelector.setOrderOption("creationDate");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "creationDate");
                     return true;
                 } else if (id == R.id.sort_by_completiondate) {
                     Log.d(TAG, "onMenuItemClick: Sort by completion date");
-                    querySelector.setOrderOption("completionDate");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "completionDate");
                     return true;
                 }
                 return false;
@@ -106,6 +100,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         if(firebaseAuth.getCurrentUser() == null){
             Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
             ActivityStarter.openActivityLogin(ToDoListActivity.this);
+            this.finish();
             return;
         }
             Log.d(TAG, "onAuthStateChanged: Username = "+ firebaseAuth.getCurrentUser().getDisplayName());
@@ -113,13 +108,13 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     }
 
     private void initRecyclerView(String userId){
-        connectNewRecyclerAdapter(userId);
+        connectNewRecyclerAdapter(userId,"default");
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
     }
 
-    private void connectNewRecyclerAdapter(String userId){
-        taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(querySelector.getQuery(userId));
+    private void connectNewRecyclerAdapter(String userId, String sortingOption){
+        taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(userId, sortingOption);
         taskRecyclerView.setAdapter(taskRecyclerAdapter);
         taskRecyclerAdapter.startListening();
     }

@@ -6,8 +6,9 @@ import dev.ffeusthuber.todoapp.model.Task;
 
 public interface DBConnection {
     void saveTask(Task task);
-    Task getTask(String documentId);
     Query getQuery(String userId, String orderOption);
+    void saveUser(String userId, String username);
+    void setUsername(String userId, String newUsername);
     String getUserId(String username);
 
 }

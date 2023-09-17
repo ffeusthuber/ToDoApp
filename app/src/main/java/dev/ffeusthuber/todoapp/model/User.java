@@ -1,16 +1,14 @@
 package dev.ffeusthuber.todoapp.model;
 
 public class User {
-    private String uId;
     private  String username;
 
 
-    public User(String username){
+    public User(){
         //needed for Firebase
     }
 
     public User(String uId, String username) {
-        this.uId = uId;
         this.username = username;
     }
 
@@ -19,6 +17,12 @@ public class User {
         return username;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }
 
 

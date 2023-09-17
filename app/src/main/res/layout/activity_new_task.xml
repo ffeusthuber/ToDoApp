@@ -101,8 +101,8 @@
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
         android:contentDescription="@string/cancel"
         android:onClick="onClick"
         android:src="@drawable/ic_cancel"
@@ -112,13 +112,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnCreateTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         android:contentDescription="@string/create_new_task"
         android:onClick="onClick"
         android:src="@drawable/ic_save"

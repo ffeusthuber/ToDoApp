@@ -104,13 +104,15 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
                 });
 
     }
+
+    public TaskRecyclerAdapter getTaskRecyclerAdapter(String userId, String sortingOption) {
+        FirestoreRecyclerOptions options = getFirestoreRecyclerOptions(con.getQuery(userId,sortingOption));
+        return new TaskRecyclerAdapter(options, this);
+    }
+
     public FirestoreRecyclerOptions getFirestoreRecyclerOptions(Query query){
         return new FirestoreRecyclerOptions.Builder<Task>()
                 .setQuery(query, Task.class)
                 .build();
-    }
-    public TaskRecyclerAdapter getTaskRecyclerAdapter(Query query) {
-        FirestoreRecyclerOptions options = getFirestoreRecyclerOptions(query);
-        return new TaskRecyclerAdapter(options, this);
     }
 }

@@ -1,7 +1,6 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
 
 public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecyclerAdapter.TaskViewHolder>{
-    private static final String TAG = "TaskRecyclerAdapter";
     TaskListener taskListener;
     public TaskRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options, TaskListener taskListener) {
         super(options);
@@ -71,7 +69,6 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
     @Override
     public void onDataChanged() {
         super.onDataChanged();
-        Log.d(TAG, "onDataChanged: CHANGEEEEED!");
     }
 
     public class TaskViewHolder extends RecyclerView.ViewHolder{
