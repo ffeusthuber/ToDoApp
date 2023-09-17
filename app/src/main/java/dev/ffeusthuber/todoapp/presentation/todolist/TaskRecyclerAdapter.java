@@ -44,10 +44,10 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
         holder.txtTaskKeyword.setText(task.getKeyword());
         holder.txtTaskDescription.setText(task.getDescription());
         holder.cbTaskCompleted.setChecked(task.getIsCompleted());
-        CharSequence dateCharSeqCreation = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCreation());
+        CharSequence dateCharSeqCreation = DateFormat.format("MMM, d, yyyy", task.getDateCreation());
         holder.txtTaskDateCreation.setText(dateCharSeqCreation);
         holder.txtTaskCreator.setText(task.getCreatorId());
-        CharSequence dateCharSeqCompletion = DateFormat.format("EEEE, MMM, d, yyyy", task.getDateCompletion());
+        CharSequence dateCharSeqCompletion = DateFormat.format("MMM, d, yyyy", task.getDateCompletion());
         holder.txtTaskDateCompletion.setText(dateCharSeqCompletion);
         handleExpandedLayoutVisibility(holder, task);
     }

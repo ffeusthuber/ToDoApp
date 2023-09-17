@@ -38,7 +38,8 @@
                 android:layout_centerVertical="true"
                 android:backgroundTint="@color/dark_blue"
                 android:contentDescription="@string/dropdown_taskdetails"
-                android:src="@drawable/ic_task_dropdown" />
+                android:src="@drawable/ic_task_dropdown"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/ibtnTaskDropup"
@@ -51,20 +52,38 @@
                 android:src="@drawable/ic_task_dropup"
                 android:visibility="gone" />
 
-
-            <TextView
-                android:id="@+id/txtTaskTitle"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:scrollHorizontally="true"
-                android:text="Task Title"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/cbTaskCompleted"
                 android:layout_toStartOf="@id/ibtnTaskDropdown"
-                />
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/txtTaskTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="Task Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/txtTaskDateCompletion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Finish Date"
+                    android:textSize="11sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTaskTitle"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         </RelativeLayout>
@@ -78,42 +97,39 @@
             android:visibility="visible"
             android:paddingHorizontal="16dp">
 
-
-            <TableRow
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/trTaskDateCompletion"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:id="@+id/labelTaskFinishDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/to_finish_unitl"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/txtTaskDateCompletion"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/clTaskDescription"
+                android:layout_marginTop="5dp">
 
                 <TextView
-                    android:id="@+id/txtTaskDateCompletion"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/labelTaskDescription"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Task Finish Date"
-                    android:layout_marginStart="5dp"
+                    android:text="@string/description"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </TableRow>
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/txtTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Task Description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelTaskDescription"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/trTaskKeyword"
-                app:layout_constraintStart_toStartOf="@+id/trTaskDateCompletion"
-                app:layout_constraintTop_toBottomOf="@+id/trTaskDateCompletion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clTaskDescription"
                 android:layout_marginTop="5dp">
                 <TextView
                     android:id="@+id/labelTaskKeyword"
@@ -138,42 +154,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </TableRow>
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/trTaskKeyword"
-                app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/clTaskDescription"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:id="@+id/labelTaskDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/description"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/txtTaskDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Task Description"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/labelTaskDescription"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             <TableRow
                 android:id="@+id/trCreationDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clTaskDescription">
+                app:layout_constraintTop_toBottomOf="@+id/trTaskKeyword">
 
                 <TextView
                     android:id="@+id/labelTaskCreationDate"
