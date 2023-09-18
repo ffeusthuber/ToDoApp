@@ -40,6 +40,14 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
+    public boolean isNewUser(String userId) {
+        if (usersCollRef.document(userId) != null) {
+            Log.d(TAG, "new User: No user with that id in db");
+        }
+        return false;
+    }
+
+    @Override
     public void saveUser(String userId, String username) {
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
@@ -122,7 +130,4 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         }
         return query;
     }
-
-
-
 }

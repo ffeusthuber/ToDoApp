@@ -44,6 +44,11 @@ public class Task {
         return description;
     }
 
+    public String getUserId() {
+        //needed for firestore
+        return userId;
+    }
+
     public String getCreatorId() {
         return creatorId;
     }

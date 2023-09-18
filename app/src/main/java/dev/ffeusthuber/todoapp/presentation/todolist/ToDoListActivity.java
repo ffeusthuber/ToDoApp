@@ -20,12 +20,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
+import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     private static final String TAG = "ToDoListActivity";
     private final TaskHandler taskHandler = new TaskHandler();
+    private final UserHandler userHandler = new UserHandler();
     private RecyclerView taskRecyclerView;
     private TaskRecyclerAdapter taskRecyclerAdapter;
 
@@ -97,14 +99,15 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        if(firebaseAuth.getCurrentUser() == null){
+        if (firebaseAuth.getCurrentUser() == null) {
             Log.d(TAG, "onCreate: No user signed in. Starting LoginActivity");
             ActivityStarter.openActivityLogin(ToDoListActivity.this);
             this.finish();
             return;
         }
-            Log.d(TAG, "onAuthStateChanged: Username = "+ firebaseAuth.getCurrentUser().getDisplayName());
-            initRecyclerView(firebaseAuth.getCurrentUser().getUid());
+        Log.d(TAG, "onAuthStateChanged: Username = " + firebaseAuth.getCurrentUser().getDisplayName());
+        userHandler.handleNewUser(firebaseAuth.getCurrentUser().getUid());
+        initRecyclerView(firebaseAuth.getCurrentUser().getUid());
     }
 
     private void initRecyclerView(String userId){
