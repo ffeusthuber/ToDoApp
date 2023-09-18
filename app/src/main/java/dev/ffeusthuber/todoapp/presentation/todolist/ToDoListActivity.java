@@ -19,6 +19,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.ffeusthuber.todoapp.R;
+import dev.ffeusthuber.todoapp.model.NewUserCallback;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
@@ -106,7 +107,14 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             return;
         }
         Log.d(TAG, "onAuthStateChanged: Username = " + firebaseAuth.getCurrentUser().getDisplayName());
-        userHandler.handleNewUser(firebaseAuth.getCurrentUser().getUid());
+        userHandler.checkIfNewUser(firebaseAuth.getCurrentUser().getUid(), new NewUserCallback() {
+            @Override
+            public void onResult(boolean isNewUser) {
+                String username = "NEW USER";
+                // show Username dialog
+                userHandler.saveNewUser(firebaseAuth.getCurrentUser().getUid(), username);
+            }
+        });
         initRecyclerView(firebaseAuth.getCurrentUser().getUid());
     }
 

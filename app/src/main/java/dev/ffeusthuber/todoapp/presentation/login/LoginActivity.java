@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         int id = view.getId();
         if (id == R.id.btnLogin) {
             createSignInIntent();
-            this.finish();
         }
     }
 
