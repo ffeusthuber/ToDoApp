@@ -24,7 +24,7 @@ import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
-import dev.ffeusthuber.todoapp.util.IsNewUserCallback;
+import dev.ffeusthuber.todoapp.util.FirestoreCallback;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
@@ -48,8 +48,11 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             public boolean onMenuItemClick(MenuItem item) {
                 String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                 int id = item.getItemId();
-                if (id == R.id.logout){
+                if (id == R.id.menuItem_logout){
                     logOutUser();
+                    return true;
+                } else if (id == R.id.menuItem_user) {
+                    ActivityStarter.openActivityUser(ToDoListActivity.this);
                     return true;
                 } else if (id == R.id.sort_by_title) {
                     Log.d(TAG, "onMenuItemClick: Sort by title");
@@ -115,30 +118,15 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
 
     private void handleNewUser(FirebaseAuth firebaseAuth) {
         String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-        userHandler.checkIfNewUser(userId, new IsNewUserCallback() {
+        userHandler.checkIfNewUser(userId, new FirestoreCallback<Boolean>() {
             @Override
-            public void onResult(boolean isNewUser) {
+            public void onCallback(Boolean isNewUser) {
                 if (isNewUser) {
                     ActivityStarter.openActivityUser(ToDoListActivity.this);
-//                    String username = "NEW USER";
-//                    showChooseUsernameDialog();
-//                    userHandler.saveNewUser(userId, username);
                 }
             }
         });
     }
-
-//    private void showChooseUsernameDialog() {
-//        //TODO: move to own activity??
-//        AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
-//        builder.setMessage("Please choose a username")
-//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        userHandler.checkIfUsernameIsTaken("Test");
-//                    }
-//                });
-//        builder.create().show();
-//    }
 
     private void initRecyclerView(String userId) {
         connectNewRecyclerAdapter(userId, "default");

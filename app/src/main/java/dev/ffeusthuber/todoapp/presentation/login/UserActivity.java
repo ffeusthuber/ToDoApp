@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
-import dev.ffeusthuber.todoapp.util.IsUsernameTakenCallback;
+import dev.ffeusthuber.todoapp.util.FirestoreCallback;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -26,6 +27,21 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         edtUsername = findViewById(R.id.edtUsername);
+        userHandler.checkIfNewUser(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), new FirestoreCallback<Boolean>() {
+            @Override
+            public void onCallback(Boolean isNewUser) {
+                if (!isNewUser){
+                    userHandler.getUsername(FirebaseAuth.getInstance().getCurrentUser().getUid(), new FirestoreCallback<String>() {
+                        @Override
+                        public void onCallback(String username) {
+                            if (username != null){
+                                edtUsername.setText(username);
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public void onClick(View view){
@@ -40,9 +56,9 @@ public class UserActivity extends AppCompatActivity {
             displayUsernameEmptyDialog();
             return;
         }
-        userHandler.checkIfUsernameIsTaken(username, new IsUsernameTakenCallback() {
+        userHandler.checkIfUsernameIsTaken(username, new FirestoreCallback<Boolean>() {
             @Override
-            public void onResult(boolean isUsernameInUse) {
+            public void onCallback(Boolean isUsernameInUse) {
                 if(!isUsernameInUse){
                     saveUsername();
                     startToDoListActivity();
@@ -65,11 +81,11 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void displayUsernameTakenDialog() {
-        System.out.println("USERNAME TAKEN");
+        Toast.makeText(UserActivity.this, R.string.chosen_username_is_already_taken,Toast.LENGTH_SHORT).show();
     }
 
     private void displayUsernameEmptyDialog() {
-        System.out.println("USERNAME EMPTY");
+        Toast.makeText(UserActivity.this, R.string.username_can_not_be_empty,Toast.LENGTH_SHORT).show();
     }
 
 }

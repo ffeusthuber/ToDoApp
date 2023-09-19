@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/sort_by"
+        android:id="@+id/menuItem_sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/sort_todolist"
         android:contentDescription="@string/content_description_sort_by"
@@ -32,7 +32,14 @@
     </item>
 
     <item
-        android:id="@+id/logout"
+        android:id="@+id/menuItem_user"
+        android:icon="@drawable/ic_user"
+        android:title="@string/userdata"
+        android:contentDescription="@string/content_description_userdata"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menuItem_logout"
         android:icon="@drawable/ic_logout"
         android:title="@string/logout"
         android:contentDescription="@string/content_description_logout"

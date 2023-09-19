@@ -18,8 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dev.ffeusthuber.todoapp.model.Task;
-import dev.ffeusthuber.todoapp.util.IsNewUserCallback;
-import dev.ffeusthuber.todoapp.util.IsUsernameTakenCallback;
+import dev.ffeusthuber.todoapp.util.FirestoreCallback;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
@@ -45,16 +44,16 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
-    public void checkIfUserIsNew(String userId, IsNewUserCallback isNewUserCallback) {
+    public void checkIfUserIsNew(String userId, FirestoreCallback<Boolean> callback) {
         usersCollRef.document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot ds = task.getResult();
                     if (ds.exists()) {
-                        isNewUserCallback.onResult(false);
+                        callback.onCallback(false);
                     } else {
-                        isNewUserCallback.onResult(true);
+                        callback.onCallback(true);
                         Log.d(TAG, "isNewUser - User not found in db");
                     }
                 } else {
@@ -65,13 +64,13 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
-    public void checkIfUsernameIsTaken(String username, IsUsernameTakenCallback isUsernameTakenCallback) {
+    public void checkIfUsernameIsTaken(String username, FirestoreCallback<Boolean> callback) {
         usersCollRef.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     QuerySnapshot qs = task.getResult();
-                    isUsernameTakenCallback.onResult(!qs.isEmpty());
+                    callback.onCallback(!qs.isEmpty());
                 }
             }
         });
@@ -121,6 +120,26 @@ public class DBConnectionImpl_Firestore implements DBConnection{
         return null;
     }
 
+    @Override
+    public void getUsername(String userId, final FirestoreCallback<String> callback) {
+        usersCollRef.document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot ds = task.getResult();
+                    if(ds.exists()){
+                        String username = ds.getString("username");
+                        callback.onCallback(username);
+                    }else {
+                        callback.onCallback(null);
+                    }
+                }else {
+                    callback.onCallback(null);
+                }
+            }
+        });
+    }
+
     public Query getQuery(String userId, String orderOption){
         Query query;
         switch (orderOption){
@@ -157,7 +176,6 @@ public class DBConnectionImpl_Firestore implements DBConnection{
                         .whereEqualTo("userId", userId)
                         .orderBy("isCompleted", Query.Direction.ASCENDING)
                         .orderBy("dateCompletion", Query.Direction.ASCENDING);
-                Log.d(TAG, "getQuery: default query");
         }
         return query;
     }

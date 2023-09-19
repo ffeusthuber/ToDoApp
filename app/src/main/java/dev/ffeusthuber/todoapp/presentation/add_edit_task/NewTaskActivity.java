@@ -92,7 +92,6 @@ public class NewTaskActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-
     }
 
     private void saveNewTask(){
