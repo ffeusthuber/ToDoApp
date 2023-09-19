@@ -13,7 +13,7 @@ public interface DBConnection {
 
     void checkIfUserIsNew(String userId, IsNewUserCallback isNewUserCallback);
 
-    void checkIfUsernameIsInUse(String username, IsUsernameTakenCallback isUsernameTakenCallback);
+    void checkIfUsernameIsTaken(String username, IsUsernameTakenCallback isUsernameTakenCallback);
 
     void saveUser(String userId, String username);
 

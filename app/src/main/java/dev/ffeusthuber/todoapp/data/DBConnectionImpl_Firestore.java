@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,11 +52,10 @@ public class DBConnectionImpl_Firestore implements DBConnection{
                 if (task.isSuccessful()) {
                     DocumentSnapshot ds = task.getResult();
                     if (ds.exists()) {
-                        Log.d(TAG, "isNewUser:false - User already in db");
                         isNewUserCallback.onResult(false);
                     } else {
                         isNewUserCallback.onResult(true);
-                        Log.d(TAG, "isNewUser:true - User not found in db");
+                        Log.d(TAG, "isNewUser - User not found in db");
                     }
                 } else {
                     Log.e(TAG, "onComplete: ", task.getException());
@@ -65,8 +65,16 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
-    public void checkIfUsernameIsInUse(String username, IsUsernameTakenCallback isUsernameTakenCallback) {
-
+    public void checkIfUsernameIsTaken(String username, IsUsernameTakenCallback isUsernameTakenCallback) {
+        usersCollRef.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot qs = task.getResult();
+                    isUsernameTakenCallback.onResult(!qs.isEmpty());
+                }
+            }
+        });
     }
 
     @Override

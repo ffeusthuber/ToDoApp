@@ -1,6 +1,5 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
-import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -19,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
@@ -46,25 +46,26 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                 int id = item.getItemId();
                 if (id == R.id.logout){
                     logOutUser();
                     return true;
                 } else if (id == R.id.sort_by_title) {
                     Log.d(TAG, "onMenuItemClick: Sort by title");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(),"title");
+                    connectNewRecyclerAdapter(userId,"title");
                     return true;
                 } else if (id == R.id.sort_by_keyword) {
                     Log.d(TAG, "onMenuItemClick: Sort by keyword");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "keyword");
+                    connectNewRecyclerAdapter(userId, "keyword");
                     return true;
                 } else if (id == R.id.sort_by_creationdate) {
                     Log.d(TAG, "onMenuItemClick: Sort by creation date");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "creationDate");
+                    connectNewRecyclerAdapter(userId, "creationDate");
                     return true;
                 } else if (id == R.id.sort_by_completiondate) {
                     Log.d(TAG, "onMenuItemClick: Sort by completion date");
-                    connectNewRecyclerAdapter(FirebaseAuth.getInstance().getCurrentUser().getUid(), "completionDate");
+                    connectNewRecyclerAdapter(userId, "completionDate");
                     return true;
                 }
                 return false;
@@ -113,30 +114,31 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
     }
 
     private void handleNewUser(FirebaseAuth firebaseAuth) {
-        String userId = firebaseAuth.getCurrentUser().getUid();
+        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         userHandler.checkIfNewUser(userId, new IsNewUserCallback() {
             @Override
             public void onResult(boolean isNewUser) {
                 if (isNewUser) {
-                    String username = "NEW USER";
-                    showChooseUsernameDialog();
-                    userHandler.saveNewUser(userId, username);
+                    ActivityStarter.openActivityUser(ToDoListActivity.this);
+//                    String username = "NEW USER";
+//                    showChooseUsernameDialog();
+//                    userHandler.saveNewUser(userId, username);
                 }
             }
         });
     }
 
-    private void showChooseUsernameDialog() {
-        //TODO: move to own activity??
-        AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
-        builder.setMessage("Please choose a username")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        userHandler.checkIfUsernameIsInUse("Test");
-                    }
-                });
-        builder.create().show();
-    }
+//    private void showChooseUsernameDialog() {
+//        //TODO: move to own activity??
+//        AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+//        builder.setMessage("Please choose a username")
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        userHandler.checkIfUsernameIsTaken("Test");
+//                    }
+//                });
+//        builder.create().show();
+//    }
 
     private void initRecyclerView(String userId) {
         connectNewRecyclerAdapter(userId, "default");
