@@ -16,8 +16,9 @@ import com.google.firebase.firestore.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-import dev.ffeusthuber.todoapp.model.NewUserCallback;
 import dev.ffeusthuber.todoapp.model.Task;
+import dev.ffeusthuber.todoapp.util.IsNewUserCallback;
+import dev.ffeusthuber.todoapp.util.IsUsernameTakenCallback;
 
 public class DBConnectionImpl_Firestore implements DBConnection{
     private static final String TAG = "DBConnectionImpl_Firestore";
@@ -43,17 +44,17 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
-    public void checkIfUserIsNew(String userId, NewUserCallback newUserCallback) {
+    public void checkIfUserIsNew(String userId, IsNewUserCallback isNewUserCallback) {
         usersCollRef.document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot ds = task.getResult();
-                    if(ds.exists()){
+                    if (ds.exists()) {
                         Log.d(TAG, "isNewUser:false - User already in db");
-                        newUserCallback.onResult(false);
-                    } else{
-                        newUserCallback.onResult(true);
+                        isNewUserCallback.onResult(false);
+                    } else {
+                        isNewUserCallback.onResult(true);
                         Log.d(TAG, "isNewUser:true - User not found in db");
                     }
                 } else {
@@ -64,8 +65,13 @@ public class DBConnectionImpl_Firestore implements DBConnection{
     }
 
     @Override
+    public void checkIfUsernameIsInUse(String username, IsUsernameTakenCallback isUsernameTakenCallback) {
+
+    }
+
+    @Override
     public void saveUser(String userId, String username) {
-        Log.d(TAG,"SaveUser called");
+        Log.d(TAG, "SaveUser called");
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
         usersCollRef.document(userId)

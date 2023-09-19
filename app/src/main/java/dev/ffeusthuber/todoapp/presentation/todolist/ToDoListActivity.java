@@ -1,5 +1,6 @@
 package dev.ffeusthuber.todoapp.presentation.todolist;
 
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -19,10 +21,10 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dev.ffeusthuber.todoapp.R;
-import dev.ffeusthuber.todoapp.model.NewUserCallback;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
+import dev.ffeusthuber.todoapp.util.IsNewUserCallback;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
@@ -106,25 +108,43 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
             this.finish();
             return;
         }
-        Log.d(TAG, "onAuthStateChanged: Username = " + firebaseAuth.getCurrentUser().getDisplayName());
-        userHandler.checkIfNewUser(firebaseAuth.getCurrentUser().getUid(), new NewUserCallback() {
-            @Override
-            public void onResult(boolean isNewUser) {
-                String username = "NEW USER";
-                // show Username dialog
-                userHandler.saveNewUser(firebaseAuth.getCurrentUser().getUid(), username);
-            }
-        });
+        handleNewUser(firebaseAuth);
         initRecyclerView(firebaseAuth.getCurrentUser().getUid());
     }
 
-    private void initRecyclerView(String userId){
-        connectNewRecyclerAdapter(userId,"default");
+    private void handleNewUser(FirebaseAuth firebaseAuth) {
+        String userId = firebaseAuth.getCurrentUser().getUid();
+        userHandler.checkIfNewUser(userId, new IsNewUserCallback() {
+            @Override
+            public void onResult(boolean isNewUser) {
+                if (isNewUser) {
+                    String username = "NEW USER";
+                    showChooseUsernameDialog();
+                    userHandler.saveNewUser(userId, username);
+                }
+            }
+        });
+    }
+
+    private void showChooseUsernameDialog() {
+        //TODO: move to own activity??
+        AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
+        builder.setMessage("Please choose a username")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        userHandler.checkIfUsernameIsInUse("Test");
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void initRecyclerView(String userId) {
+        connectNewRecyclerAdapter(userId, "default");
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
     }
 
-    private void connectNewRecyclerAdapter(String userId, String sortingOption){
+    private void connectNewRecyclerAdapter(String userId, String sortingOption) {
         taskRecyclerAdapter = taskHandler.getTaskRecyclerAdapter(userId, sortingOption);
         taskRecyclerView.setAdapter(taskRecyclerAdapter);
         taskRecyclerAdapter.startListening();

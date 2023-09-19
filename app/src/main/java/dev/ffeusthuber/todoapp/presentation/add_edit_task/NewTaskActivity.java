@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import dev.ffeusthuber.todoapp.R;
-
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
 
@@ -92,7 +91,6 @@ public class NewTaskActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
-        // Create the AlertDialog object and return it
         builder.create().show();
 
     }
