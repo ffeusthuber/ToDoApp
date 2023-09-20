@@ -4,13 +4,16 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
@@ -40,10 +43,27 @@ public class NewTaskActivity extends AppCompatActivity {
         edtTxtTaskDescription = findViewById(R.id.edtTxtDescription);
         edtTxtTaskCompletionDate = findViewById(R.id.edtTxtTaskFinishDate);
         edtTxtTaskKeyword = findViewById(R.id.edtTxtTaskKeyword);
+
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar_newTask);
+        setItemClickListener(toolbar);
     }
 
+    private void setItemClickListener(MaterialToolbar toolbar) {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.menuItem_back) {
+                    ActivityStarter.openActivityToDoList(NewTaskActivity.this);
+                    NewTaskActivity.this.finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btnCreateTask) {
             Log.d(TAG, "onClick: User clicked btnCreateTask");
@@ -54,11 +74,6 @@ public class NewTaskActivity extends AppCompatActivity {
                 this.finish();
             }
 
-        }
-        else if (id == R.id.btnCancel) {
-            Log.d(TAG, "onClick: User clicked btnCancel");
-            ActivityStarter.openActivityToDoList(NewTaskActivity.this);
-            this.finish();
         }
         else if (id == R.id.edtTxtTaskFinishDate || id == R.id.ibtnCalendar) {
             final Calendar calendar = Calendar.getInstance();

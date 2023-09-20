@@ -1,12 +1,15 @@
 package dev.ffeusthuber.todoapp.presentation.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -27,14 +30,36 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         edtUsername = findViewById(R.id.edtUsername);
+
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar_user);
+        setItemClickListener(toolbar);
+        fillInCurrentUsername();
+    }
+
+    private void setItemClickListener(MaterialToolbar toolbar) {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.menuItem_back) {
+                    ActivityStarter.openActivityToDoList(UserActivity.this);
+                    UserActivity.this.finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void fillInCurrentUsername() {
         userHandler.checkIfNewUser(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), new FirestoreCallback<Boolean>() {
             @Override
             public void onCallback(Boolean isNewUser) {
-                if (!isNewUser){
+                if (!isNewUser) {
                     userHandler.getUsername(FirebaseAuth.getInstance().getCurrentUser().getUid(), new FirestoreCallback<String>() {
                         @Override
                         public void onCallback(String username) {
-                            if (username != null){
+                            if (username != null) {
                                 edtUsername.setText(username);
                             }
                         }

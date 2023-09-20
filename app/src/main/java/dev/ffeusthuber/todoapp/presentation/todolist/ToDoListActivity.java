@@ -41,14 +41,17 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
         setContentView(R.layout.activity_to_do_list);
 
         taskRecyclerView = findViewById(R.id.recViewToDoList);
-        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar_toDoList);
+        setItemClickListener(toolbar);
+    }
 
-        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+    private void setItemClickListener(MaterialToolbar toolbar) {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                 int id = item.getItemId();
-                if (id == R.id.menuItem_logout){
+                if (id == R.id.menuItem_logout) {
                     logOutUser();
                     return true;
                 } else if (id == R.id.menuItem_user) {
@@ -56,7 +59,7 @@ public class ToDoListActivity extends AppCompatActivity implements FirebaseAuth.
                     return true;
                 } else if (id == R.id.sort_by_title) {
                     Log.d(TAG, "onMenuItemClick: Sort by title");
-                    connectNewRecyclerAdapter(userId,"title");
+                    connectNewRecyclerAdapter(userId, "title");
                     return true;
                 } else if (id == R.id.sort_by_keyword) {
                     Log.d(TAG, "onMenuItemClick: Sort by keyword");

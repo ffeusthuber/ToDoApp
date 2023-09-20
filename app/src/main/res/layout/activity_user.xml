@@ -6,12 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".presentation.login.UserActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar_user"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_bar_return"
+            app:title="@string/set_username" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/txtSetUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Set your Username"
+        android:text="@string/set_your_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Other users can assign tasks to you under this name "
+        android:text="@string/username_description"
         app:layout_constraintEnd_toEndOf="@+id/txtSetUsername"
         app:layout_constraintStart_toStartOf="@+id/txtSetUsername"
         app:layout_constraintTop_toBottomOf="@+id/txtSetUsername" />
@@ -33,21 +50,25 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Username"
+        android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="@+id/txtSetUsername"
         app:layout_constraintStart_toStartOf="@+id/txtSetUsername"
+        android:importantForAutofill="no"
         app:layout_constraintTop_toBottomOf="@+id/txtUsernameDescription" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSetUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Username"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/gold"
         android:onClick="onClick"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/set_username"
+        android:src="@drawable/ic_save"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:rippleColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
