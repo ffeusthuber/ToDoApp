@@ -1,15 +1,14 @@
 package dev.ffeusthuber.todoapp.presentation.add_edit_task;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -92,21 +91,11 @@ public class NewTaskActivity extends AppCompatActivity {
 
     private boolean validData(){
         if(edtTxtTaskCompletionDate.getText().toString().isEmpty()){
-            displayMissingCompletionDateDialog();
+            Toast.makeText(NewTaskActivity.this, R.string.missing_completionDate, Toast.LENGTH_LONG).show();
             return false;
         }
         //TODO: add check for username
         return true;
-    }
-
-    private void displayMissingCompletionDateDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(NewTaskActivity.this);
-        builder.setMessage(R.string.missing_completionDate)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        builder.create().show();
     }
 
     private void saveNewTask(){

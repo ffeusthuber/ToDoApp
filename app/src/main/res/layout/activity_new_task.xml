@@ -27,6 +27,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -37,9 +38,11 @@
             android:id="@+id/txtNewTaskMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="24dp"
             android:text="@string/create_new_task"
+            android:textAlignment="center"
             android:textSize="19sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +51,7 @@
             android:id="@+id/edtTxtTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/title"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -62,7 +65,7 @@
             android:id="@+id/edtTxtTaskKeyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/keyword"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -75,7 +78,7 @@
             android:id="@+id/trTaskFinishDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/edtTxtTaskKeyword">
 
             <EditText
@@ -110,7 +113,7 @@
             android:id="@+id/edtTxtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:gravity="top|start"
             android:hint="@string/task_description"
             android:importantForAutofill="no"
@@ -139,5 +142,15 @@
         app:rippleColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="104dp"
+        android:layout_height="22dp"
+        android:text="Task for:"
+        android:textOff="ME"
+        android:textOn="OTHER USer"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
