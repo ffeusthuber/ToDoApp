@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.presentation.login;
+package dev.ffeusthuber.todoapp.presentation.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -85,7 +85,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onCallback(Boolean isUsernameInUse) {
                 if(!isUsernameInUse){
-                    saveUsername();
+                    saveUser();
                     startToDoListActivity();
                 }else {
                     displayUsernameTakenDialog();
@@ -95,9 +95,8 @@ public class UserActivity extends AppCompatActivity {
 
     }
 
-
-    private void saveUsername() {
-        userHandler.saveNewUser(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),edtUsername.getText().toString());
+    private void saveUser() {
+        userHandler.saveUser(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),edtUsername.getText().toString());
     }
 
     private void startToDoListActivity() {

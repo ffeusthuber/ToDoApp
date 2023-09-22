@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.presentation.add_edit_task;
+package dev.ffeusthuber.todoapp.presentation.activities;
 
 import junit.framework.TestCase;
 

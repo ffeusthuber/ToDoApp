@@ -41,4 +41,6 @@
     <string name="set_username">Benutzername festlegen</string>
     <string name="set_your_username">Geben Sie Ihren Benutzernamen ein</string>
     <string name="username_description">Andere Benutzende können Ihnen unter diesem Namen Aufgaben zuweisen</string>
+    <string name="assign_to_other_user">Anderem Nutzer zuweisen</string>
+    <string name="user_not_found">Kein Nutzer unter diesem Namen</string>
 </resources>

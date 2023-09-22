@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.presentation.login;
+package dev.ffeusthuber.todoapp.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

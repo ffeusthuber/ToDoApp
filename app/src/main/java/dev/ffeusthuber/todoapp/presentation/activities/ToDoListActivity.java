@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.presentation.todolist;
+package dev.ffeusthuber.todoapp.presentation.activities;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -24,6 +24,7 @@ import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.TaskHandler;
 import dev.ffeusthuber.todoapp.model.UserHandler;
 import dev.ffeusthuber.todoapp.presentation.ActivityStarter;
+import dev.ffeusthuber.todoapp.presentation.adapters.TaskRecyclerAdapter;
 import dev.ffeusthuber.todoapp.util.FirestoreCallback;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 

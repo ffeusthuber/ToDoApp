@@ -21,7 +21,7 @@ import java.util.Objects;
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.data.DBConnection;
 import dev.ffeusthuber.todoapp.data.DBConnectionImpl_Firestore;
-import dev.ffeusthuber.todoapp.presentation.todolist.TaskRecyclerAdapter;
+import dev.ffeusthuber.todoapp.presentation.adapters.TaskRecyclerAdapter;
 import dev.ffeusthuber.todoapp.util.DateParser;
 
 public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
@@ -29,25 +29,25 @@ public class TaskHandler implements TaskRecyclerAdapter.TaskListener{
     private final DBConnection con = new DBConnectionImpl_Firestore();
 
 
-    public void handleSaveNewTask(String taskTitle,String keyword, String taskCreator, String taskDescription, String dateString){
+    public void handleSaveNewTask(String taskTitle,String keyword, String currentUserId, String taskDescription, String dateString){
         con.saveTask(new Task(
                 taskTitle,
                 keyword,
                 taskDescription,
                 Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
-                taskCreator,
+                currentUserId,
                 false,
                 new Date(),
                 DateParser.parseStringtoDate(dateString),
                 false));
     }
-    public void handleSaveNewTask(String taskTitle,String keyword, String taskCreator, String taskDescription, String dateString, String userId){
+    public void handleSaveNewTask(String taskTitle,String keyword, String currentUserId, String otherUserId, String taskDescription, String dateString){
         con.saveTask(new Task(
                 taskTitle,
                 keyword,
                 taskDescription,
-                taskCreator,
-                userId,
+                otherUserId,
+                currentUserId,
                 false,
                 new Date(),
                 DateParser.parseStringtoDate(dateString),

@@ -15,12 +15,16 @@ public class UserHandler {
         con.checkIfUsernameIsTaken(username,callback);
     }
 
-    public void saveNewUser(String userId, String username) {
-        con.saveUser(userId, username);
+    public void saveUser(String userId, String username) {
+        con.saveUser(new User(userId,username));
     }
 
     public void getUsername(String userId, FirestoreCallback<String> firestoreCallback){
         con.getUsername(userId,firestoreCallback);
+    }
+
+    public void getUserId(String username, FirestoreCallback<String> firestoreCallback){
+        con.getUserId(username,firestoreCallback);
     }
 
 

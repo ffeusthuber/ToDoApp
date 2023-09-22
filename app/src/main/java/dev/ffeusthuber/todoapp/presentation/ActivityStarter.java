@@ -3,10 +3,10 @@ package dev.ffeusthuber.todoapp.presentation;
 import android.content.Context;
 import android.content.Intent;
 
-import dev.ffeusthuber.todoapp.presentation.add_edit_task.NewTaskActivity;
-import dev.ffeusthuber.todoapp.presentation.login.LoginActivity;
-import dev.ffeusthuber.todoapp.presentation.login.UserActivity;
-import dev.ffeusthuber.todoapp.presentation.todolist.ToDoListActivity;
+import dev.ffeusthuber.todoapp.presentation.activities.NewTaskActivity;
+import dev.ffeusthuber.todoapp.presentation.activities.LoginActivity;
+import dev.ffeusthuber.todoapp.presentation.activities.UserActivity;
+import dev.ffeusthuber.todoapp.presentation.activities.ToDoListActivity;
 
 public class ActivityStarter {
 

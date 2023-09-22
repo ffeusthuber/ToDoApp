@@ -43,4 +43,6 @@
     <string name="set_username">Set Username</string>
     <string name="set_your_username">Set your username</string>
     <string name="username_description">Other users can assign tasks to you referencing this name</string>
+    <string name="assign_to_other_user">Assign to other user</string>
+    <string name="user_not_found">No user under this name</string>
 </resources>

@@ -1,4 +1,4 @@
-package dev.ffeusthuber.todoapp.presentation.todolist;
+package dev.ffeusthuber.todoapp.presentation.adapters;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
