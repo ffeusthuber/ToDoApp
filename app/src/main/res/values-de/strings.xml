@@ -23,9 +23,9 @@
     <string name="sort_todolist">Sortiere ToDoListe</string>
     <string name="content_description_sort_by">Wählen Sie eine Eigenschaft zum Sortieren der ToDoListe des Benutzers</string>
     <string name="content_description_sort_by_title">Aufgaben nach ihren Titeln sortieren</string>
-    <string name="keyword">Schlüsselwort</string>
-    <string name="keyword2">Schlüsselwort:</string>
-    <string name="content_description_sort_by_keyword">Aufgaben nach ihren Schlüsselwörtern sortieren</string>
+    <string name="keyword">Stichwort</string>
+    <string name="keyword2">Stichwort:</string>
+    <string name="content_description_sort_by_keyword">Aufgaben nach ihren Stichwort sortieren</string>
     <string name="creationdate">Erstellungsdatum</string>
     <string name="content_description_sort_by_creationdate">Aufgaben nach ihren Erstellungsdaten sortieren</string>
     <string name="completiondate">Fertigstellungsdatum</string>

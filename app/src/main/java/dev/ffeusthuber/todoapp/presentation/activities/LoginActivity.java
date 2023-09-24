@@ -68,8 +68,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setAvailableProviders(providers).build();
-        //TODO: add logo
+                .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false)
+                .setLogo(R.drawable.logo)
+                .build();
         signInLauncher.launch(signInIntent);
     }
 }

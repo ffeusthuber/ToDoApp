@@ -21,9 +21,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import dev.ffeusthuber.todoapp.R;
 import dev.ffeusthuber.todoapp.model.Task;
+import dev.ffeusthuber.todoapp.model.UserHandler;
+import dev.ffeusthuber.todoapp.util.FirestoreCallback;
 
 public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecyclerAdapter.TaskViewHolder>{
     TaskListener taskListener;
+    private final UserHandler userHandler = new UserHandler();
     public TaskRecyclerAdapter(@NonNull FirestoreRecyclerOptions<Task> options, TaskListener taskListener) {
         super(options);
         this.taskListener = taskListener;
@@ -44,10 +47,19 @@ public class TaskRecyclerAdapter extends FirestoreRecyclerAdapter<Task, TaskRecy
         holder.cbTaskCompleted.setChecked(task.getIsCompleted());
         CharSequence dateCharSeqCreation = DateFormat.format("MMM, d, yyyy", task.getDateCreation());
         holder.txtTaskDateCreation.setText(dateCharSeqCreation);
-        holder.txtTaskCreator.setText(task.getCreatorId());
         CharSequence dateCharSeqCompletion = DateFormat.format("MMM, d, yyyy", task.getDateCompletion());
         holder.txtTaskDateCompletion.setText(dateCharSeqCompletion);
+        showUsernameForUserId(holder,task.getCreatorId());
         handleExpandedLayoutVisibility(holder, task);
+    }
+
+    private void showUsernameForUserId(TaskViewHolder holder, String creatorId) {
+        userHandler.getUsername(creatorId, new FirestoreCallback<String>() {
+            @Override
+            public void onCallback(String username) {
+                holder.txtTaskCreator.setText(username);
+            }
+        });
     }
 
     private void handleExpandedLayoutVisibility(TaskViewHolder holder, Task task){

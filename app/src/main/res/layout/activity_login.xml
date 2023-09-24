@@ -7,26 +7,28 @@
     tools:context=".presentation.activities.LoginActivity"
     android:id="@+id/layoutLogin">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginTop="225dp"
+        android:contentDescription="@string/todo_list" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
         android:onClick="onClick"
         android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:layout_marginTop="75dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
